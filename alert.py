@@ -22,8 +22,16 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from collections import defaultdict
+from datetime import datetime, timedelta, timezone
+
+try:
+    from zoneinfo import ZoneInfo
+    TZ = ZoneInfo(os.getenv("TIMEZONE", "Europe/Paris"))
+except Exception:
+    TZ = timezone.utc
 
 API = "https://data-api.polymarket.com"
+GAMMA_API = "https://gamma-api.polymarket.com"
 
 THRESHOLD_USD = float(os.getenv("THRESHOLD_USD", "10000"))
 MIN_FILL_USD = float(os.getenv("MIN_FILL_USD", "1000"))
@@ -38,8 +46,8 @@ OLD_WALLET_TTL = 30 * 24 * 3600
 ALERTED_TTL = 7 * 24 * 3600
 
 
-def get_json(path, params, retries=3):
-    url = f"{API}{path}?{urllib.parse.urlencode(params)}"
+def get_json(path, params, retries=3, base=API):
+    url = f"{base}{path}?{urllib.parse.urlencode(params)}"
     for attempt in range(retries):
         try:
             req = urllib.request.Request(url, headers={"User-Agent": "polymarket-first-bet-alert/1.0"})
@@ -136,12 +144,57 @@ def check_first_bet(wallet, now):
             "shares": total_shares,
             "avg_price": total_usd / total_shares if total_shares else 0,
             "fills": len(buys),
+            "condition_id": market,
             "first_ts": first["timestamp"],
+            "last_ts": buys[-1]["timestamp"],
             "tx": first.get("transactionHash", ""),
         }
     if now > window_end:
         return "old", None
     return "pending", None
+
+
+def parse_date(value):
+    """Dates Gamma : '2026-11-04T04:59:00Z' ou '2026-10-29 02:30:00+00'."""
+    if not value:
+        return None
+    v = value.strip().replace(" ", "T").replace("Z", "+00:00")
+    if len(v) >= 3 and v[-3] in "+-" and v[-2:].isdigit():
+        v += ":00"
+    try:
+        dt = datetime.fromisoformat(v)
+    except ValueError:
+        return None
+    return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+
+
+def market_dates(condition_id):
+    """(début du match, fin du marché) ; None si inconnu."""
+    try:
+        markets = get_json("/markets", {"condition_ids": condition_id}, base=GAMMA_API)
+    except Exception as e:
+        print(f"  dates du marché indisponibles ({e})", file=sys.stderr)
+        return None, None
+    if not markets:
+        return None, None
+    m = markets[0]
+    return parse_date(m.get("gameStartTime")), parse_date(m.get("endDate"))
+
+
+def fmt_time(dt):
+    return dt.astimezone(TZ).strftime("%d/%m à %H:%M")
+
+
+def until(dt, now, past="déjà passé"):
+    secs = (dt - now).total_seconds()
+    if secs < 0:
+        return past
+    hours = secs / 3600
+    if hours < 1:
+        return f"dans {max(1, round(secs / 60))} min"
+    if hours < 48:
+        return f"dans {hours:.0f} h" if hours >= 10 else f"dans {int(hours)} h {int(secs % 3600 // 60):02d}"
+    return f"dans {hours / 24:.0f} jours"
 
 
 def usd(n):
@@ -150,7 +203,15 @@ def usd(n):
 
 def format_alert(a):
     e = html.escape
-    when = time.strftime("%d/%m %H:%M UTC", time.gmtime(a["first_ts"]))
+    now = datetime.now(timezone.utc)
+    bet_first = datetime.fromtimestamp(a["first_ts"], timezone.utc)
+    bet_last = datetime.fromtimestamp(a["last_ts"], timezone.utc)
+    if bet_last - bet_first >= timedelta(minutes=1):
+        bet_time = f"{fmt_time(bet_first)} → {bet_last.astimezone(TZ):%H:%M}"
+    else:
+        bet_time = fmt_time(bet_first)
+    tz_name = "heure de Paris" if str(TZ) == "Europe/Paris" else str(TZ)
+    game_start, market_end = market_dates(a["condition_id"])
     profile = f"https://polymarket.com/profile/{a['wallet']}"
     market = f"https://polymarket.com/event/{a['event_slug']}"
     short = f"{a['wallet'][:6]}…{a['wallet'][-4:]}"
@@ -161,7 +222,16 @@ def format_alert(a):
         f"📊 {e(a['title'])}",
         f"🎯 Prix moyen : {a['avg_price']:.3f} (≈ {a['avg_price'] * 100:.1f} %)",
         f"💵 Gain potentiel : {usd(a['shares'] - a['usd'])} $",
-        f"🧩 {a['fills']} exécution(s), à partir du {when}",
+        f"🧩 {a['fills']} exécution(s)",
+        "",
+        f"🕐 Parié le {bet_time} ({tz_name})",
+    ]
+    if game_start:
+        lines.append(f"🏟 Début du match : {fmt_time(game_start)} ({until(game_start, now, 'déjà commencé')})")
+    # Pour le sport, la « fin » Polymarket est souvent l'heure du coup d'envoi : inutile de la répéter.
+    if market_end and market_end != game_start:
+        lines.append(f"⏳ Fin du marché : {fmt_time(market_end)} ({until(market_end, now, 'terminé')})")
+    lines += [
         "",
         f"👤 <a href=\"{profile}\">{e(a['name'] or short)}</a> ({short})",
         f"🔗 <a href=\"{market}\">Voir le marché</a>",
