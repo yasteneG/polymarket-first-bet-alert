@@ -228,9 +228,10 @@ def format_alert(a):
     ]
     if game_start:
         lines.append(f"🏟 Début du match : {fmt_time(game_start)} ({until(game_start, now, 'déjà commencé')})")
-    # Pour le sport, la « fin » Polymarket est souvent l'heure du coup d'envoi : inutile de la répéter.
-    if market_end and market_end != game_start:
-        lines.append(f"⏳ Fin du marché : {fmt_time(market_end)} ({until(market_end, now, 'terminé')})")
+    # Pour le sport, la « fin » Polymarket n'est qu'une date limite (marge en cas de report) :
+    # seule l'heure du match compte. Pour le reste, c'est l'échéance à laquelle le résultat est attendu.
+    elif market_end:
+        lines.append(f"⏳ Échéance du marché : {fmt_time(market_end)} ({until(market_end, now, 'dépassée')})")
     lines += [
         "",
         f"👤 <a href=\"{profile}\">{e(a['name'] or short)}</a> ({short})",
