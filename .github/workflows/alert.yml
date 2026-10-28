@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "*/5 * * * *"   # toutes les 5 min (GitHub peut retarder de quelques minutes)
   workflow_dispatch:         # bouton « Run workflow » pour lancer à la main
+    inputs:
+      resend_wallet:
+        description: "Facultatif : adresse d'un compte dont renvoyer l'alerte"
+        required: false
+        default: ""
 
 permissions:
   contents: write            # uniquement pour le commit « keepalive » ci-dessous
@@ -36,6 +41,7 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           THRESHOLD_USD: ${{ vars.THRESHOLD_USD || '10000' }}
+          RESEND_WALLET: ${{ inputs.resend_wallet }}
         run: python alert.py
 
       - name: Sauvegarder l'état

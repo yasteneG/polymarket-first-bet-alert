@@ -40,6 +40,8 @@ FIRST_BET_WINDOW_MIN = int(os.getenv("FIRST_BET_WINDOW_MIN", "30"))
 STATE_FILE = os.getenv("STATE_FILE", "state.json")
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "").strip()
+# Renvoi manuel : renvoie l'alerte de ce compte, même ancienne ou déjà envoyée.
+RESEND_WALLET = os.getenv("RESEND_WALLET", "").strip().lower()
 
 # Comptes déjà identifiés comme anciens : on les garde 30 jours pour éviter de les revérifier.
 OLD_WALLET_TTL = 30 * 24 * 3600
@@ -107,7 +109,7 @@ def find_candidates(trades):
     return {w for (w, _), usd in totals.items() if usd >= THRESHOLD_USD * 0.8}
 
 
-def check_first_bet(wallet, now):
+def check_first_bet(wallet, now, force=False):
     """
     Renvoie ("alert", infos), ("old", None) si le compte a déjà un historique,
     ou ("pending", None) si c'est trop tôt pour conclure.
@@ -120,7 +122,7 @@ def check_first_bet(wallet, now):
         return "pending", None
 
     first = activity[0]
-    if now - first["timestamp"] > (LOOKBACK_MIN + 15) * 60:
+    if not force and now - first["timestamp"] > (LOOKBACK_MIN + 15) * 60:
         return "old", None
 
     window_end = first["timestamp"] + FIRST_BET_WINDOW_MIN * 60
@@ -149,7 +151,7 @@ def check_first_bet(wallet, now):
             "last_ts": buys[-1]["timestamp"],
             "tx": first.get("transactionHash", ""),
         }
-    if now > window_end:
+    if now > window_end and not force:
         return "old", None
     return "pending", None
 
@@ -256,8 +258,19 @@ def send_telegram(text):
             raise RuntimeError(f"Telegram a répondu {resp.status}")
 
 
+def resend(wallet, now):
+    verdict, info = check_first_bet(wallet, now, force=True)
+    if verdict != "alert":
+        print(f"{wallet} : pas de premier pari >= {THRESHOLD_USD:.0f} $, rien à renvoyer.")
+        return
+    send_telegram(format_alert(info))
+    print(f"Alerte renvoyée pour {wallet} : {info['usd']:.0f} $ sur « {info['title']} »")
+
+
 def main():
     now = int(time.time())
+    if RESEND_WALLET:
+        return resend(RESEND_WALLET, now)
     state = load_state()
 
     trades = fetch_recent_trades(now - LOOKBACK_MIN * 60)
