@@ -6,6 +6,11 @@ un **premier pari de 10 000 $ ou plus**, et vous envoie une alerte Telegram.
 Un pari exécuté en plusieurs morceaux (par exemple 4 000 $ + 6 000 $) est bien additionné :
 on compte tous les achats du compte sur son premier marché pendant ses 30 premières minutes.
 
+Chaque alerte se termine par un **bilan** des paris déjà signalés : nombre de paris gagnés et perdus,
+argent gagné ou perdu par ces comptes, et paris encore en cours. À chaque alerte, seuls les paris
+encore en cours sont revérifiés ; un pari tranché est compté une fois pour toutes. Le bilan est
+enregistré dans `bets.json`, dans le dépôt. Il suppose que le compte garde sa position jusqu'au résultat.
+
 ## Installation (environ 10 minutes)
 
 ### 1. Créer le bot Telegram
@@ -45,7 +50,7 @@ Sans les variables Telegram, les alertes s'affichent simplement dans le terminal
 
 ## Limites
 - **Délai** : GitHub lance les tâches planifiées avec 5 à 20 minutes de retard. Aucun pari n'est manqué
-  (chaque passage regarde la dernière heure), mais l'alerte n'est pas instantanée.
+  (chaque passage reprend là où le précédent s'est arrêté, jusqu'à 24 h en arrière), mais l'alerte n'est pas instantanée.
 - **Petits morceaux** : les exécutions de moins de 1 000 $ ne servent pas à repérer les candidats.
   Elles sont en revanche comptées dans le total final.
 - **« Nouveau compte » ≠ « nouvelle personne »** : n'importe qui peut créer un nouveau portefeuille.
