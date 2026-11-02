@@ -1,0 +1,88 @@
+[
+ {
+  "wallet": "0x68b67b9578d5eab17663414f6919772882ea7cd7",
+  "condition_id": "0xa32317ba83c3c83dc43ef260c3744c22ed8000db53d30bc09372c45cff5fb07a",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Will Republicans lose the Alaska, Iowa, Kansas, Maine, Michigan, Ohio, and Texas Senate seats?",
+  "usd": 20000.0,
+  "shares": 86956.5217,
+  "bet_ts": 1793490255,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0x7421ea34f897f35f2ee71f38514df5d9741e79d0",
+  "condition_id": "0x2a20a4b200ea5f9064a8fc6b7e276d7680fb0573febbde6ede46a6ce167c8edd",
+  "outcome_index": 1,
+  "outcome": "Niccolo Ciavarella",
+  "title": "M15 Monastir: Aziz Dougaz vs Niccolo Ciavarella",
+  "usd": 10250.0,
+  "shares": 20000.0,
+  "bet_ts": 1793219986,
+  "status": "void",
+  "pnl": -250.0,
+  "resolved_ts": 1793659459
+ },
+ {
+  "wallet": "0xbf546c698f650b7b1d85bc25842732a3710387c4",
+  "condition_id": "0xc5eae79d1ffe716572353962eb926b1e3964c500a4880a7a94f58408218ee76b",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "2026 Balance of Power: R Senate, R House",
+  "usd": 182818.62,
+  "shares": 2895931.125,
+  "bet_ts": 1793643132,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0xe40b59580521387fb2a5b753f52593102508cdfd",
+  "condition_id": "0xa5d79e71e66c9fe122f8b8b3ca6ab7a0e3048bd8508f130746944e92ed79ddf3",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Will Xavier Becerra win the California Governor Election in 2026?",
+  "usd": 50100.0,
+  "shares": 51051.8093,
+  "bet_ts": 1793399631,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0xe674dede25584b64a53d85517008530d2ab15e2b",
+  "condition_id": "0x07bba897ac2291e4cddfa9704fb5bedffa73d31e3b6cad4cbad5cec5a0d7ee45",
+  "outcome_index": 0,
+  "outcome": "Over",
+  "title": "FC Augsburg vs. SC Freiburg: O/U 2.5",
+  "usd": 18959.56,
+  "shares": 29004.73,
+  "bet_ts": 1793456046,
+  "status": "won",
+  "pnl": 10045.17,
+  "resolved_ts": 1793659460
+ },
+ {
+  "wallet": "0x3d8930583a5509c86cf676256fa6c0574ccd18c7",
+  "condition_id": "0x307a1ed89d60b61002dd5bbf00e1408c5ed2ab3fcdb056191ca7ef9bc34d38f3",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Will the Democratic Party control the Senate after the 2026 Midterm elections?",
+  "usd": 24687.99,
+  "shares": 31793.8143,
+  "bet_ts": 1793649930,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0xb126832ee8f0d04c473bb7a11482e9432c0aca11",
+  "condition_id": "0xf273da5c76e0116c0ec63787453b54d74f0c182256dff4ed2f27f08b14048f7c",
+  "outcome_index": 1,
+  "outcome": "No",
+  "title": "Will Christine Lagarde win the 2027 French presidential election?",
+  "usd": 11979.76,
+  "shares": 12924.7588,
+  "bet_ts": 1793649981,
+  "status": "open",
+  "pnl": null
+ }
+]
