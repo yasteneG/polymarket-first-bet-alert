@@ -84,5 +84,18 @@
   "bet_ts": 1793649981,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x88f7e4b923d3a07171b6a62f9a03332d7162d307",
+  "condition_id": "0xd54ab598791633e900a51014de0f74046c0340e21b0b1d809f21edfd40fd6055",
+  "outcome_index": 0,
+  "outcome": "MOUZ",
+  "title": "Counter-Strike: MOUZ vs FURIA (BO3) - PGL Masters Bucharest Playoffs",
+  "usd": 19584.0,
+  "shares": 32000.0,
+  "bet_ts": 1793372482,
+  "status": "lost",
+  "pnl": -19584.0,
+  "resolved_ts": 1793659509
  }
 ]
