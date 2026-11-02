@@ -97,5 +97,17 @@
   "status": "lost",
   "pnl": -19584.0,
   "resolved_ts": 1793659509
+ },
+ {
+  "wallet": "0x9a291d942ba084bebb589fae5e79636b77c93239",
+  "condition_id": "0x34918035a590555ba1fb1d6a019d766ab6e557d63e7f3140b63b4550eee7f417",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Will the Democrats win the Texas Senate race in 2026?",
+  "usd": 12418.07,
+  "shares": 16393.4933,
+  "bet_ts": 1793659924,
+  "status": "open",
+  "pnl": null
  }
 ]
