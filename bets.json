@@ -206,5 +206,17 @@
   "bet_ts": 1793729097,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x7e2c335c329fd2630cd31165f9ce9ad9209df04f",
+  "condition_id": "0x47ae6f46df3003603fa67687beb5f1fe6e6d66f32292df612bb551ae31e4e66c",
+  "outcome_index": 0,
+  "outcome": "old blood",
+  "title": "Dota 2: old blood vs Roshan Hunters - Game 2 Winner",
+  "usd": 13126.98,
+  "shares": 16127.41,
+  "bet_ts": 1793729610,
+  "status": "open",
+  "pnl": null
  }
 ]
