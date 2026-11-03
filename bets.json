@@ -109,5 +109,17 @@
   "bet_ts": 1793659924,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0xee89f9857014d3334354149bfec9042da8939a5e",
+  "condition_id": "0xd5d9fc47718bd553592d126b1fa5e87183d27f3936975b0c04cc0f2dec1f1bb4",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Will the Democratic Party control the House after the 2026 Midterm elections?",
+  "usd": 270540.0,
+  "shares": 284210.5263,
+  "bet_ts": 1793675946,
+  "status": "open",
+  "pnl": null
  }
 ]
