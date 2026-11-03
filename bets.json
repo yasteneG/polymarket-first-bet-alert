@@ -230,5 +230,17 @@
   "bet_ts": 1793733049,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0xbd93bcc24752edfa3f644b523be8d7ffa24dd5d2",
+  "condition_id": "0x484829914029c89c187799972e5a2e50b48e94347b17e2bd2d7badd313d573d3",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Will Paris Saint-Germain FC win on 2026-11-03?",
+  "usd": 13824.71,
+  "shares": 24155.5536,
+  "bet_ts": 1793735455,
+  "status": "open",
+  "pnl": null
  }
 ]
