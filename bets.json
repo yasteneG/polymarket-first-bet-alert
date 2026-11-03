@@ -180,8 +180,9 @@
   "usd": 14575.84,
   "shares": 25482.6055,
   "bet_ts": 1793726245,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -14575.84,
+  "resolved_ts": 1793749538
  },
  {
   "wallet": "0xed977d7abb43565ef5df5032cd129b7a7144954b",
@@ -228,8 +229,9 @@
   "usd": 92412.1,
   "shares": 194000.0,
   "bet_ts": 1793733049,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 101587.9,
+  "resolved_ts": 1793749538
  },
  {
   "wallet": "0xbd93bcc24752edfa3f644b523be8d7ffa24dd5d2",
@@ -240,6 +242,19 @@
   "usd": 13824.71,
   "shares": 24155.5536,
   "bet_ts": 1793735455,
+  "status": "won",
+  "pnl": 10330.84,
+  "resolved_ts": 1793749538
+ },
+ {
+  "wallet": "0x449dece42e8c767cdfa0332dfb5b07b1f0b8f511",
+  "condition_id": "0x2c00cb09722a0f0501c5e49131b898ed57bb5c075db4dc2bcbc14908f45b8c48",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Will the Republicans win the Maine Senate race in 2026?",
+  "usd": 10277.85,
+  "shares": 32828.4292,
+  "bet_ts": 1793749269,
   "status": "open",
   "pnl": null
  }
