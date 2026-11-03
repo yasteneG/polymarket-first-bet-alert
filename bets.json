@@ -121,5 +121,17 @@
   "bet_ts": 1793675946,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x95581a6f5045bc6c7cd8acc017df188b05a1fd3f",
+  "condition_id": "0xb85d29d5fbe34d33c4eafe48e92468ceae4640278a38390fba08bfde2da3bfed",
+  "outcome_index": 0,
+  "outcome": "MOUZ",
+  "title": "Counter-Strike: MOUZ vs BetBoom Team (BO3) - IEM Beijing Group B",
+  "usd": 33199.11,
+  "shares": 46221.7672,
+  "bet_ts": 1793681892,
+  "status": "open",
+  "pnl": null
  }
 ]
