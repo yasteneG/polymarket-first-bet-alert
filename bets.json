@@ -131,6 +131,19 @@
   "usd": 33199.11,
   "shares": 46221.7672,
   "bet_ts": 1793681892,
+  "status": "won",
+  "pnl": 13022.66,
+  "resolved_ts": 1793707530
+ },
+ {
+  "wallet": "0x2df07dca14e2ec08ee724b1b1ad01b3709cca000",
+  "condition_id": "0x307a1ed89d60b61002dd5bbf00e1408c5ed2ab3fcdb056191ca7ef9bc34d38f3",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Will the Democratic Party control the Senate after the 2026 Midterm elections?",
+  "usd": 29023.5,
+  "shares": 36885.03,
+  "bet_ts": 1793707336,
   "status": "open",
   "pnl": null
  }
