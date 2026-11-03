@@ -170,5 +170,29 @@
   "bet_ts": 1793725216,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x7d1cfb5e442ac8613cd67914c6fc784f6af12db8",
+  "condition_id": "0xec82039305b0ca33db7842720d34c67bedbc15d5f6156f73f93779f83cdf2c62",
+  "outcome_index": 0,
+  "outcome": "Over",
+  "title": "Galatasaray SK vs. VfB Stuttgart: O/U 3.5",
+  "usd": 14575.84,
+  "shares": 25482.6055,
+  "bet_ts": 1793726245,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0xed977d7abb43565ef5df5032cd129b7a7144954b",
+  "condition_id": "0x16c63b7cc37f012b9f59ee164ec03877914c701d06d48291ae8d6fc08a088b0d",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "2026 Balance of Power: D Senate, D House",
+  "usd": 14930.53,
+  "shares": 19458.6316,
+  "bet_ts": 1793726298,
+  "status": "open",
+  "pnl": null
  }
 ]
