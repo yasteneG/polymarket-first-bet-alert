@@ -33,8 +33,9 @@
   "usd": 182818.62,
   "shares": 2895931.125,
   "bet_ts": 1793643132,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -182818.62,
+  "resolved_ts": 1793824535
  },
  {
   "wallet": "0xe40b59580521387fb2a5b753f52593102508cdfd",
@@ -200,8 +201,9 @@
   "usd": 14930.53,
   "shares": 19458.6316,
   "bet_ts": 1793726298,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 4528.1,
+  "resolved_ts": 1793824535
  },
  {
   "wallet": "0x5135fa87ffc6ac48e8f6c2c4103271f0e8076131",
@@ -289,8 +291,9 @@
   "usd": 11632.59,
   "shares": 11700.0,
   "bet_ts": 1793757150,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 67.41,
+  "resolved_ts": 1793824535
  },
  {
   "wallet": "0xb56f4dbddbb8a0db417be1eb2592fea690dfd162",
@@ -301,6 +304,18 @@
   "usd": 12459.89,
   "shares": 20828.72,
   "bet_ts": 1793799546,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0x561e3d3da1b48d675a83f6c9637c538ae3275c0c",
+  "condition_id": "0x030d8733b2ec8898c99df381ef3d7649850000000000000000000000000000",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Bulls vs. Knicks AND Mavericks vs. Spurs AND Lakers vs. Kings AND Bucks vs. Celtics",
+  "usd": 40000.0,
+  "shares": 78321.0196,
+  "bet_ts": 1793824464,
   "status": "open",
   "pnl": null
  }
