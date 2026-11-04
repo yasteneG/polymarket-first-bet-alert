@@ -45,8 +45,9 @@
   "usd": 50100.0,
   "shares": 51051.8093,
   "bet_ts": 1793399631,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 951.81,
+  "resolved_ts": 1793800863
  },
  {
   "wallet": "0xe674dede25584b64a53d85517008530d2ab15e2b",
@@ -70,8 +71,9 @@
   "usd": 24687.99,
   "shares": 31793.8143,
   "bet_ts": 1793649930,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 7105.82,
+  "resolved_ts": 1793800863
  },
  {
   "wallet": "0xb126832ee8f0d04c473bb7a11482e9432c0aca11",
@@ -107,8 +109,9 @@
   "usd": 12418.07,
   "shares": 16393.4933,
   "bet_ts": 1793659924,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 3975.42,
+  "resolved_ts": 1793800864
  },
  {
   "wallet": "0xee89f9857014d3334354149bfec9042da8939a5e",
@@ -119,8 +122,9 @@
   "usd": 270540.0,
   "shares": 284210.5263,
   "bet_ts": 1793675946,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 13670.53,
+  "resolved_ts": 1793800864
  },
  {
   "wallet": "0x95581a6f5045bc6c7cd8acc017df188b05a1fd3f",
@@ -144,8 +148,9 @@
   "usd": 29023.5,
   "shares": 36885.03,
   "bet_ts": 1793707336,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 7861.53,
+  "resolved_ts": 1793800864
  },
  {
   "wallet": "0x0282f761e3327a3f2661b9a62eccd81bb21d65c4",
@@ -156,8 +161,9 @@
   "usd": 25750.0,
   "shares": 100000.0,
   "bet_ts": 1793724333,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -25750.0,
+  "resolved_ts": 1793800864
  },
  {
   "wallet": "0xc5a12cc20803195ac37c898c1474f7bf765ebdac",
@@ -168,8 +174,9 @@
   "usd": 10008.21,
   "shares": 13212.16,
   "bet_ts": 1793725216,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 3203.95,
+  "resolved_ts": 1793800865
  },
  {
   "wallet": "0x7d1cfb5e442ac8613cd67914c6fc784f6af12db8",
@@ -205,8 +212,9 @@
   "usd": 11012.03,
   "shares": 14537.3333,
   "bet_ts": 1793729097,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 3525.3,
+  "resolved_ts": 1793800865
  },
  {
   "wallet": "0x7e2c335c329fd2630cd31165f9ce9ad9209df04f",
@@ -255,8 +263,9 @@
   "usd": 10277.85,
   "shares": 32828.4292,
   "bet_ts": 1793749269,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -10277.85,
+  "resolved_ts": 1793800865
  },
  {
   "wallet": "0xf3e597b170243180f611a9b2bb75df2772153ce5",
@@ -267,8 +276,9 @@
   "usd": 11798.97,
   "shares": 11961.0791,
   "bet_ts": 1793753616,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 162.11,
+  "resolved_ts": 1793800866
  },
  {
   "wallet": "0x303868b6a7fcb4e4c0b9bd44e5d762fdceb32828",
@@ -279,6 +289,18 @@
   "usd": 11632.59,
   "shares": 11700.0,
   "bet_ts": 1793757150,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0xb56f4dbddbb8a0db417be1eb2592fea690dfd162",
+  "condition_id": "0xdbe93b5a701f36076a560fa4b9ba59e365a6e8e2ea6a83764640010657277ca4",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Will Gadi Eizenkot be the next Prime Minister of Israel?",
+  "usd": 12459.89,
+  "shares": 20828.72,
+  "bet_ts": 1793799546,
   "status": "open",
   "pnl": null
  }
