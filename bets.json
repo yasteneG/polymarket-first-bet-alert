@@ -269,5 +269,17 @@
   "bet_ts": 1793753616,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x303868b6a7fcb4e4c0b9bd44e5d762fdceb32828",
+  "condition_id": "0xc5eae79d1ffe716572353962eb926b1e3964c500a4880a7a94f58408218ee76b",
+  "outcome_index": 1,
+  "outcome": "No",
+  "title": "2026 Balance of Power: R Senate, R House",
+  "usd": 11632.59,
+  "shares": 11700.0,
+  "bet_ts": 1793757150,
+  "status": "open",
+  "pnl": null
  }
 ]
