@@ -318,5 +318,17 @@
   "bet_ts": 1793824464,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x1bc2900db79077f14d294dd24552020dfbe73391",
+  "condition_id": "0x159b76fa5382b06fb70bf17593a79a9ee670b7888af945f917de7579138194eb",
+  "outcome_index": 0,
+  "outcome": "76ers",
+  "title": "76ers vs. Pistons",
+  "usd": 38201.33,
+  "shares": 41700.55,
+  "bet_ts": 1793844333,
+  "status": "open",
+  "pnl": null
  }
 ]
