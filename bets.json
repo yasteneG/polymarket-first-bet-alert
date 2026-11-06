@@ -227,8 +227,9 @@
   "usd": 13126.98,
   "shares": 16127.41,
   "bet_ts": 1793729610,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 3000.43,
+  "resolved_ts": 1794006641
  },
  {
   "wallet": "0xe7896d420c15c54609e63e44bc7d9ffaea391f8b",
@@ -341,6 +342,18 @@
   "usd": 15741.29,
   "shares": 22739.8377,
   "bet_ts": 1793923636,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0x4905285e78c4b29c6a47a731b6ebc564e0800a76",
+  "condition_id": "0xbfe1e41de1f93dbd81c3f333ca91c7eb44d398dcd6fdd6d8192c93fc3a922191",
+  "outcome_index": 0,
+  "outcome": "Western Kentucky",
+  "title": "Western Kentucky vs. Middle Tennessee",
+  "usd": 17517.98,
+  "shares": 29827.5862,
+  "bet_ts": 1794006180,
   "status": "open",
   "pnl": null
  }
