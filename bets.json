@@ -328,6 +328,19 @@
   "usd": 38201.33,
   "shares": 41700.55,
   "bet_ts": 1793844333,
+  "status": "won",
+  "pnl": 3499.22,
+  "resolved_ts": 1793923844
+ },
+ {
+  "wallet": "0x797834f4937c1c31fa934b059eec2be27787b8a2",
+  "condition_id": "0xb106a3c9d1c59ed8117493dae6459a3ff79369a8f7cddaf62f4a05828b89195e",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Will the Democrats win the 2028 US Presidential Election?",
+  "usd": 15741.29,
+  "shares": 22739.8377,
+  "bet_ts": 1793923636,
   "status": "open",
   "pnl": null
  }
