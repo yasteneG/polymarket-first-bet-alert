@@ -356,5 +356,17 @@
   "bet_ts": 1794006180,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x47c9bb67a96ebb4cee4251806c5ddb402e681a59",
+  "condition_id": "0x6e82ef739fdf68caf70a1b03e3610f71b7d9f0e9fb3ec4e7b2b38ffb5c76263b",
+  "outcome_index": 1,
+  "outcome": "Miami (FL)",
+  "title": "Spread: Notre Dame (-6.5)",
+  "usd": 10052.37,
+  "shares": 21976.0,
+  "bet_ts": 1794008856,
+  "status": "open",
+  "pnl": null
  }
 ]
