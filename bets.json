@@ -378,8 +378,9 @@
   "usd": 12431.23,
   "shares": 27786.0,
   "bet_ts": 1794013561,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -12431.23,
+  "resolved_ts": 1794053440
  },
  {
   "wallet": "0xa9819f659220ddd3a903112085e2c2ae6152a69c",
@@ -390,6 +391,19 @@
   "usd": 20737.72,
   "shares": 62720.59,
   "bet_ts": 1794025063,
+  "status": "won",
+  "pnl": 41982.87,
+  "resolved_ts": 1794053440
+ },
+ {
+  "wallet": "0x616f3bede364f61bea3a302747ae8db77ff13df5",
+  "condition_id": "0x6bfbb32c13e9f0e8865a6a04688f9a98e48b0db03fdca13457009f6e56f00ce1",
+  "outcome_index": 1,
+  "outcome": "No",
+  "title": "Will SV Darmstadt 98 win on 2026-11-07?",
+  "usd": 11185.55,
+  "shares": 13626.5311,
+  "bet_ts": 1794053158,
   "status": "open",
   "pnl": null
  }
