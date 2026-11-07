@@ -431,5 +431,17 @@
   "bet_ts": 1794076626,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x1b4d85848f77f641a04db0ef0bd5baaa08f05686",
+  "condition_id": "0xda551aac8682348117a22c847462af81151834653c39872e5b99056d372a6392",
+  "outcome_index": 1,
+  "outcome": "No",
+  "title": "Will FC Barcelona win on 2026-11-08?",
+  "usd": 19999.38,
+  "shares": 41453.3617,
+  "bet_ts": 1794093657,
+  "status": "open",
+  "pnl": null
  }
 ]
