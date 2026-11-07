@@ -380,5 +380,17 @@
   "bet_ts": 1794013561,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0xa9819f659220ddd3a903112085e2c2ae6152a69c",
+  "condition_id": "0x59e3804ce3be5b5720b705bf95cb838107834b40bee257bb24c4bfa494d0fa21",
+  "outcome_index": 0,
+  "outcome": "TheMongolz",
+  "title": "Counter-Strike: TheMongolz vs Natus Vincere (BO3) - IEM Beijing Playoffs",
+  "usd": 20737.72,
+  "shares": 62720.59,
+  "bet_ts": 1794025063,
+  "status": "open",
+  "pnl": null
  }
 ]
