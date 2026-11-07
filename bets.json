@@ -368,5 +368,17 @@
   "bet_ts": 1794008856,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x9c4e47e84b91d550210ac8102a12c94a592f837c",
+  "condition_id": "0xb185b1b70ecc237562662d4eb27f54874b512432c0944040f0081a6b995f764e",
+  "outcome_index": 0,
+  "outcome": "Arizona",
+  "title": "Spread: Arizona (-7.5)",
+  "usd": 12431.23,
+  "shares": 27786.0,
+  "bet_ts": 1794013561,
+  "status": "open",
+  "pnl": null
  }
 ]
