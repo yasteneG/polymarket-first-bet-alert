@@ -406,5 +406,17 @@
   "bet_ts": 1794053158,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x65e7f7aea33c7531a2eee0f057047a00eebc31c8",
+  "condition_id": "0x98c266979031b3ee6c87ea5b8b671be0e242e13f9be4c123ff2c21ef46ff62c3",
+  "outcome_index": 1,
+  "outcome": "No",
+  "title": "Will Gen.G win Worlds 2026?",
+  "usd": 68173.86,
+  "shares": 141307.0,
+  "bet_ts": 1794055356,
+  "status": "open",
+  "pnl": null
  }
 ]
