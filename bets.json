@@ -404,8 +404,9 @@
   "usd": 11185.55,
   "shares": 13626.5311,
   "bet_ts": 1794053158,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 2440.98,
+  "resolved_ts": 1794076841
  },
  {
   "wallet": "0x65e7f7aea33c7531a2eee0f057047a00eebc31c8",
@@ -416,6 +417,18 @@
   "usd": 68173.86,
   "shares": 141307.0,
   "bet_ts": 1794055356,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0xf655b20d7423cd35398cd1d0f616e72de849c7f4",
+  "condition_id": "0x23a03783dea7193df8afc1e8a8f15eb54193a706f0cf1a90f4ace9a4c13a75b8",
+  "outcome_index": 0,
+  "outcome": "Invictus Gaming",
+  "title": "LoL: Invictus Gaming vs Gen.G (BO5) - Worlds Playoffs",
+  "usd": 36407.9,
+  "shares": 166783.01,
+  "bet_ts": 1794076626,
   "status": "open",
   "pnl": null
  }
