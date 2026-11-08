@@ -367,8 +367,9 @@
   "usd": 10052.37,
   "shares": 21976.0,
   "bet_ts": 1794008856,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -10052.37,
+  "resolved_ts": 1794135932
  },
  {
   "wallet": "0x9c4e47e84b91d550210ac8102a12c94a592f837c",
@@ -455,6 +456,19 @@
   "usd": 18459.11,
   "shares": 37278.5129,
   "bet_ts": 1794104881,
+  "status": "lost",
+  "pnl": -18459.11,
+  "resolved_ts": 1794135933
+ },
+ {
+  "wallet": "0xbbed430a78794490606a305c32a624b50c09a1bb",
+  "condition_id": "0xdbe93b5a701f36076a560fa4b9ba59e365a6e8e2ea6a83764640010657277ca4",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Will Gadi Eizenkot be the next Prime Minister of Israel?",
+  "usd": 18200.0,
+  "shares": 26216.7225,
+  "bet_ts": 1794135297,
   "status": "open",
   "pnl": null
  }
