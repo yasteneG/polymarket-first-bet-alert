@@ -354,8 +354,9 @@
   "usd": 17517.98,
   "shares": 29827.5862,
   "bet_ts": 1794006180,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -17517.98,
+  "resolved_ts": 1794105638
  },
  {
   "wallet": "0x47c9bb67a96ebb4cee4251806c5ddb402e681a59",
@@ -429,8 +430,9 @@
   "usd": 36407.9,
   "shares": 166783.01,
   "bet_ts": 1794076626,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -36407.9,
+  "resolved_ts": 1794105639
  },
  {
   "wallet": "0x1b4d85848f77f641a04db0ef0bd5baaa08f05686",
@@ -441,6 +443,18 @@
   "usd": 19999.38,
   "shares": 41453.3617,
   "bet_ts": 1794093657,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0x79f8f1bd8dc679ccbb279075820cd408aeafc57e",
+  "condition_id": "0x41d36fad9fb624b579c38715a3b66c0021629eaa5b7052d173da36fb07d2a333",
+  "outcome_index": 0,
+  "outcome": "Rockets",
+  "title": "Rockets vs. Suns",
+  "usd": 18459.11,
+  "shares": 37278.5129,
+  "bet_ts": 1794104881,
   "status": "open",
   "pnl": null
  }
