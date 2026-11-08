@@ -471,5 +471,17 @@
   "bet_ts": 1794135297,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x6b164d7387cf1ce9460822384d24fa9c54a9b0db",
+  "condition_id": "0xe7c0c5512d77261c314114f7139d5e7d07a2a7cd3e6c6277e27e6d9a20eb83cc",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Will Chelsea FC win on 2026-11-08?",
+  "usd": 23621.0,
+  "shares": 50000.0,
+  "bet_ts": 1794143083,
+  "status": "open",
+  "pnl": null
  }
 ]
