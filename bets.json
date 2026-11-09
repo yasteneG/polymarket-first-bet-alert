@@ -510,5 +510,17 @@
   "bet_ts": 1794251998,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x790cbc85ccdb8e9014dcae6d1e877ad81fb5485a",
+  "condition_id": "0x28d41b143982a495dea646648f57fc28408b86938433bd4fa3590312efd3a519",
+  "outcome_index": 0,
+  "outcome": "Over",
+  "title": "CD Tecnico Universitario vs. Manta FC: O/U 2.5",
+  "usd": 12049.89,
+  "shares": 18098.3899,
+  "bet_ts": 1794252331,
+  "status": "open",
+  "pnl": null
  }
 ]
