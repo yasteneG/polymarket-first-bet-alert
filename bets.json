@@ -444,8 +444,9 @@
   "usd": 19999.38,
   "shares": 41453.3617,
   "bet_ts": 1794093657,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -19999.38,
+  "resolved_ts": 1794185443
  },
  {
   "wallet": "0x79f8f1bd8dc679ccbb279075820cd408aeafc57e",
@@ -481,6 +482,19 @@
   "usd": 23621.0,
   "shares": 50000.0,
   "bet_ts": 1794143083,
+  "status": "lost",
+  "pnl": -23621.0,
+  "resolved_ts": 1794185443
+ },
+ {
+  "wallet": "0x7a0ffa1165eda20953d4e04ed2f710a5c0020b68",
+  "condition_id": "0x30187092881dd5d0fe2c613a39ffcd21a819025da41aac264c441b0ca77c51c9",
+  "outcome_index": 1,
+  "outcome": "T1",
+  "title": "LoL: Bilibili Gaming vs T1 (BO5) - Worlds Playoffs",
+  "usd": 15555.0,
+  "shares": 57692.3077,
+  "bet_ts": 1794185242,
   "status": "open",
   "pnl": null
  }
