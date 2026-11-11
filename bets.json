@@ -536,5 +536,17 @@
   "bet_ts": 1794367891,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x9d09ed579dd108cbf50eed6859a6cdbfe2f0214c",
+  "condition_id": "0x054c2696e9a494b9ee1de8aa1a807f2cb693306a88147951042f397be08f54b8",
+  "outcome_index": 1,
+  "outcome": "Pedro Martinez",
+  "title": "Orleans: Jurij Rodionov vs Pedro Martinez",
+  "usd": 10250.0,
+  "shares": 20000.0,
+  "bet_ts": 1794397035,
+  "status": "open",
+  "pnl": null
  }
 ]
