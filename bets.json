@@ -508,8 +508,9 @@
   "usd": 30257.19,
   "shares": 45184.6359,
   "bet_ts": 1794251998,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 14927.45,
+  "resolved_ts": 1794368130
  },
  {
   "wallet": "0x790cbc85ccdb8e9014dcae6d1e877ad81fb5485a",
@@ -520,6 +521,19 @@
   "usd": 12049.89,
   "shares": 18098.3899,
   "bet_ts": 1794252331,
+  "status": "won",
+  "pnl": 6048.5,
+  "resolved_ts": 1794368130
+ },
+ {
+  "wallet": "0x9a3ac332dc4cc4095b771a0596985cf499a7c6a8",
+  "condition_id": "0xe0881460dcd53df2f8410ff9ec4c151f22c15ad29ff581d8eb8ac9bce5124eef",
+  "outcome_index": 1,
+  "outcome": "No",
+  "title": "Jensen Huang announced resignation or removal by December 31, 2026?",
+  "usd": 10063.15,
+  "shares": 11874.6573,
+  "bet_ts": 1794367891,
   "status": "open",
   "pnl": null
  }
