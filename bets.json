@@ -561,5 +561,17 @@
   "bet_ts": 1794447787,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0xa78ce4347aa2579f698adf65ef3db4a5cf56cadd",
+  "condition_id": "0x835acf3bffe67dcfb5e5f97aba52414739b6f5ff1970195b52d97bb374796155",
+  "outcome_index": 1,
+  "outcome": "No",
+  "title": "Jensen Huang announced resignation or removal by November 12, 2026?",
+  "usd": 14701.77,
+  "shares": 34233.87,
+  "bet_ts": 1794471837,
+  "status": "open",
+  "pnl": null
  }
 ]
