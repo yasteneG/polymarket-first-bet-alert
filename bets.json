@@ -559,8 +559,9 @@
   "usd": 12114.68,
   "shares": 72664.91,
   "bet_ts": 1794447787,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -12114.68,
+  "resolved_ts": 1794489341
  },
  {
   "wallet": "0xa78ce4347aa2579f698adf65ef3db4a5cf56cadd",
@@ -595,6 +596,18 @@
   "usd": 11012.28,
   "shares": 37803.5372,
   "bet_ts": 1794478854,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0x6e63b72ad2ba9fa7575882d41ac52b7271cc201d",
+  "condition_id": "0xce610556ec78cfd7894f4169d91fe70e31c2fb49f927fffd7fe7d06530f88d56",
+  "outcome_index": 1,
+  "outcome": "No",
+  "title": "Will David Lisnard win the 2027 French presidential election?",
+  "usd": 28173.35,
+  "shares": 33127.3432,
+  "bet_ts": 1794489114,
   "status": "open",
   "pnl": null
  }
