@@ -585,5 +585,17 @@
   "bet_ts": 1794477034,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x127659e2ed463a5b5dfeff2348ee76138caaee2b",
+  "condition_id": "0xbdc863ac40456c9cddb58e02610d985bfd08401b0d9a622ede786ed7a085e5bf",
+  "outcome_index": 1,
+  "outcome": "G2",
+  "title": "Counter-Strike: Spirit vs G2 (BO3) - BLAST Rivals Group B",
+  "usd": 11012.28,
+  "shares": 37803.5372,
+  "bet_ts": 1794478854,
+  "status": "open",
+  "pnl": null
  }
 ]
