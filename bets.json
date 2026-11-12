@@ -546,6 +546,19 @@
   "usd": 10250.0,
   "shares": 20000.0,
   "bet_ts": 1794397035,
+  "status": "won",
+  "pnl": 9750.0,
+  "resolved_ts": 1794447938
+ },
+ {
+  "wallet": "0x6c04f36bc8694d8510343b2572b6387db8187fb4",
+  "condition_id": "0xb28a59022569bfec91bb01f152fe16f097c2e859d31895dc04e25081804a8d86",
+  "outcome_index": 0,
+  "outcome": "FUT Esports",
+  "title": "Counter-Strike: FUT Esports vs MOUZ (BO3) - BLAST Rivals Group B",
+  "usd": 12114.68,
+  "shares": 72664.91,
+  "bet_ts": 1794447787,
   "status": "open",
   "pnl": null
  }
