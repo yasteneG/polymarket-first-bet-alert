@@ -534,8 +534,9 @@
   "usd": 10063.15,
   "shares": 11874.6573,
   "bet_ts": 1794367891,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -10063.15,
+  "resolved_ts": 1794573939
  },
  {
   "wallet": "0x9d09ed579dd108cbf50eed6859a6cdbfe2f0214c",
@@ -572,8 +573,9 @@
   "usd": 14701.77,
   "shares": 34233.87,
   "bet_ts": 1794471837,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -14701.77,
+  "resolved_ts": 1794573939
  },
  {
   "wallet": "0x1dfa95826357b4ff3cfdc8d475128f65daf5e394",
@@ -584,8 +586,9 @@
   "usd": 10158.42,
   "shares": 16559.8824,
   "bet_ts": 1794477034,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -10158.42,
+  "resolved_ts": 1794573939
  },
  {
   "wallet": "0x127659e2ed463a5b5dfeff2348ee76138caaee2b",
@@ -596,8 +599,9 @@
   "usd": 11012.28,
   "shares": 37803.5372,
   "bet_ts": 1794478854,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -11012.28,
+  "resolved_ts": 1794573940
  },
  {
   "wallet": "0x6e63b72ad2ba9fa7575882d41ac52b7271cc201d",
@@ -608,6 +612,18 @@
   "usd": 28173.35,
   "shares": 33127.3432,
   "bet_ts": 1794489114,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0x069f66925364139dd60042625d257e2a2b715b53",
+  "condition_id": "0xecd623d28d3ab0b43ec9e3a9056a847bd4bec7605d107878d6d69582baf67901",
+  "outcome_index": 0,
+  "outcome": "Alejandro Tabilo",
+  "title": "BNP Paribas Nordic Open: Alejandro Tabilo vs Thiago Agustin Tirante",
+  "usd": 19290.23,
+  "shares": 31531.92,
+  "bet_ts": 1794573418,
   "status": "open",
   "pnl": null
  }
