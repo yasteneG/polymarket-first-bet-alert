@@ -624,6 +624,19 @@
   "usd": 19290.23,
   "shares": 31531.92,
   "bet_ts": 1794573418,
+  "status": "lost",
+  "pnl": -19290.23,
+  "resolved_ts": 1794614465
+ },
+ {
+  "wallet": "0x00f113724877aca69109d85b9cef19799a8a627b",
+  "condition_id": "0xbc9405ded4e1dd441204a54e0754f8f77d4fc885518339d03bc0c5be49cf10c8",
+  "outcome_index": 0,
+  "outcome": "Knicks",
+  "title": "Spread: Knicks (-6.5)",
+  "usd": 10561.79,
+  "shares": 18458.6836,
+  "bet_ts": 1794614439,
   "status": "open",
   "pnl": null
  }
