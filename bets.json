@@ -637,6 +637,19 @@
   "usd": 10561.79,
   "shares": 18458.6836,
   "bet_ts": 1794614439,
+  "status": "lost",
+  "pnl": -10561.79,
+  "resolved_ts": 1794641454
+ },
+ {
+  "wallet": "0xa1a35d5ae938221b5b475a97a742f49f03e5958a",
+  "condition_id": "0x41f94101d57bf028eff62f2cc3714adb79722553dc59c1676071459c0b009e45",
+  "outcome_index": 1,
+  "outcome": "Gen.G",
+  "title": "LoL: Bilibili Gaming vs Gen.G (BO5) - Worlds Playoffs",
+  "usd": 10185.0,
+  "shares": 15873.0159,
+  "bet_ts": 1794641027,
   "status": "open",
   "pnl": null
  }
