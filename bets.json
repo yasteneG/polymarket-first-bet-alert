@@ -662,8 +662,9 @@
   "usd": 239658.16,
   "shares": 254606.1319,
   "bet_ts": 1794682055,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 14947.97,
+  "resolved_ts": 1794697266
  },
  {
   "wallet": "0x608dc244ec003191cdf8c933f707e2c6b8d4971d",
@@ -674,6 +675,18 @@
   "usd": 199664.37,
   "shares": 316034.6452,
   "bet_ts": 1794684137,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0xd53f8a1fa85c2fdf700b2c93a87a9272cc9d6840",
+  "condition_id": "0xe5911fe31ff6ada47f633e9cc21c8edfb3d1be97d580ebffe01d7e953f440a9c",
+  "outcome_index": 1,
+  "outcome": "Patriots",
+  "title": "Spread: Lions (-2.5)",
+  "usd": 16663.87,
+  "shares": 33555.6269,
+  "bet_ts": 1794695318,
   "status": "open",
   "pnl": null
  }
