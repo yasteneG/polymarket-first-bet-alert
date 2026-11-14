@@ -652,5 +652,17 @@
   "bet_ts": 1794641027,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0xfe29606756d56eecd16c50154497da59044c8241",
+  "condition_id": "0xb6dc51a900f55b3b00eaf494dbe5faaddb7e485dd170afe971f9a5e9f03d17e2",
+  "outcome_index": 1,
+  "outcome": "Ohio State",
+  "title": "Northwestern vs. Ohio State",
+  "usd": 239658.16,
+  "shares": 254606.1319,
+  "bet_ts": 1794682055,
+  "status": "open",
+  "pnl": null
  }
 ]
