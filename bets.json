@@ -731,5 +731,17 @@
   "bet_ts": 1794769714,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0xbc926c5fbeae8d40ed4b6c4a7403c6cad21c02c0",
+  "condition_id": "0xbf7a9da08326512f76129d4accf9f7d852dbf1cb7dd2c512479ff40c872f5659",
+  "outcome_index": 1,
+  "outcome": "No",
+  "title": "Will Chiang Wan-an win the next Taipei Mayor election?",
+  "usd": 16217.71,
+  "shares": 43367.2354,
+  "bet_ts": 1794772888,
+  "status": "open",
+  "pnl": null
  }
 ]
