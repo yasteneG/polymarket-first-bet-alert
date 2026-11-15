@@ -650,8 +650,9 @@
   "usd": 10185.0,
   "shares": 15873.0159,
   "bet_ts": 1794641027,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -10185.0,
+  "resolved_ts": 1794705932
  },
  {
   "wallet": "0xfe29606756d56eecd16c50154497da59044c8241",
@@ -687,6 +688,18 @@
   "usd": 16663.87,
   "shares": 33555.6269,
   "bet_ts": 1794695318,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0x724a2d3ac1539d353d8d0cb11c2d22d8962fabc0",
+  "condition_id": "0x662a09ac7a32e3458056c358ac394fd823e12aa19037d4407744628ab839f978",
+  "outcome_index": 1,
+  "outcome": "FURIA",
+  "title": "Counter-Strike: Spirit vs FURIA (BO5) - BLAST Rivals Playoffs",
+  "usd": 19945.94,
+  "shares": 47254.6341,
+  "bet_ts": 1794705614,
   "status": "open",
   "pnl": null
  }
