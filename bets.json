@@ -419,8 +419,9 @@
   "usd": 68173.86,
   "shares": 141307.0,
   "bet_ts": 1794055356,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 73133.14,
+  "resolved_ts": 1794717050
  },
  {
   "wallet": "0xf655b20d7423cd35398cd1d0f616e72de849c7f4",
@@ -676,8 +677,9 @@
   "usd": 199664.37,
   "shares": 316034.6452,
   "bet_ts": 1794684137,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -199664.37,
+  "resolved_ts": 1794717050
  },
  {
   "wallet": "0xd53f8a1fa85c2fdf700b2c93a87a9272cc9d6840",
@@ -700,6 +702,18 @@
   "usd": 19945.94,
   "shares": 47254.6341,
   "bet_ts": 1794705614,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0xa19c2b5c845d9938e0bcfa98196b533a2701b181",
+  "condition_id": "0xbddb7c7946f22cd2c0fd059473c4cd0b3458e901bfa581afccdae0058ae25380",
+  "outcome_index": 0,
+  "outcome": "Amanda Nunes",
+  "title": "UFC 334: Amanda Nunes vs. Kayla Harrison (Women's Bantamweight, Main Card)",
+  "usd": 29939.26,
+  "shares": 72668.1,
+  "bet_ts": 1794717010,
   "status": "open",
   "pnl": null
  }
