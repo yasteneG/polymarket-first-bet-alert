@@ -690,8 +690,9 @@
   "usd": 16663.87,
   "shares": 33555.6269,
   "bet_ts": 1794695318,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -16663.87,
+  "resolved_ts": 1794770138
  },
  {
   "wallet": "0x724a2d3ac1539d353d8d0cb11c2d22d8962fabc0",
@@ -702,8 +703,9 @@
   "usd": 19945.94,
   "shares": 47254.6341,
   "bet_ts": 1794705614,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 27308.69,
+  "resolved_ts": 1794770138
  },
  {
   "wallet": "0xa19c2b5c845d9938e0bcfa98196b533a2701b181",
@@ -714,6 +716,19 @@
   "usd": 29939.26,
   "shares": 72668.1,
   "bet_ts": 1794717010,
+  "status": "lost",
+  "pnl": -29939.26,
+  "resolved_ts": 1794770139
+ },
+ {
+  "wallet": "0xfd4a9e342ad3facdb95e780ea9c5e21405b0684b",
+  "condition_id": "0x0b4cc3b739e1dfe5d73274740e7308b6fb389c5af040c3a174923d928d134bee",
+  "outcome_index": 1,
+  "outcome": "No",
+  "title": "Will Jesus Christ return before 2027?",
+  "usd": 51796.25,
+  "shares": 52244.0,
+  "bet_ts": 1794769714,
   "status": "open",
   "pnl": null
  }
