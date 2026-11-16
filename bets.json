@@ -743,5 +743,17 @@
   "bet_ts": 1794772888,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x1d1d9c563e36367559cd9694b66d58acd52b5cae",
+  "condition_id": "0x40ea206d301428cc8ae90fe8a1a84220959464446df96b7bdde7370c2fa0454d",
+  "outcome_index": 0,
+  "outcome": "Bengals",
+  "title": "Spread: Bengals (-4.5)",
+  "usd": 24444.12,
+  "shares": 46199.5926,
+  "bet_ts": 1794792940,
+  "status": "open",
+  "pnl": null
  }
 ]
