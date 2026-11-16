@@ -793,5 +793,17 @@
   "bet_ts": 1794839542,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x2ea7112fef14e0f75977f2837d4caaa440604e8d",
+  "condition_id": "0x90452ee2a372f901764dabc1812cd0d450c1239e10a44722627647ec060f32a1",
+  "outcome_index": 1,
+  "outcome": "No",
+  "title": "Variational FDV above $2B one day after launch?",
+  "usd": 10001.46,
+  "shares": 12085.8906,
+  "bet_ts": 1794843016,
+  "status": "open",
+  "pnl": null
  }
 ]
