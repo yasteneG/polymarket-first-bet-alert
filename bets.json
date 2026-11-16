@@ -753,6 +753,19 @@
   "usd": 24444.12,
   "shares": 46199.5926,
   "bet_ts": 1794792940,
+  "status": "won",
+  "pnl": 21755.47,
+  "resolved_ts": 1794821143
+ },
+ {
+  "wallet": "0xe81d90cf04db42531a2cd81a8e187bc4fd598e14",
+  "condition_id": "0x54add4fbcc788be1bc0c0aa77e0dbc67f5cc7c07581adf199c866e3595045c68",
+  "outcome_index": 1,
+  "outcome": "Down",
+  "title": "Gold Up or Down - November 16, 4:15AM-4:30AM ET",
+  "usd": 19357.17,
+  "shares": 24785.4545,
+  "bet_ts": 1794820544,
   "status": "open",
   "pnl": null
  }
