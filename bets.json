@@ -805,5 +805,17 @@
   "bet_ts": 1794843016,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x17aa4e0aedc86c341fe6f2f5b5c0d7489885bbd3",
+  "condition_id": "0x6032db1e9a530164b3a6b65276eb608b7dcd29b07b7984efa0c6c7b54feafd4d",
+  "outcome_index": 1,
+  "outcome": "Saint Peters Peacocks",
+  "title": "Spread: Massachusetts-Lowell River Hawks (-6.5)",
+  "usd": 11824.86,
+  "shares": 18949.3132,
+  "bet_ts": 1794955688,
+  "status": "open",
+  "pnl": null
  }
 ]
