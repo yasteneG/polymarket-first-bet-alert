@@ -867,5 +867,17 @@
   "bet_ts": 1795013957,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x82ac8fbc90a63e375dc7dca41c349794e458bbee",
+  "condition_id": "0x800376dc64e4e2376a495ed0df4a789192256c821bb4d1452acdd5931bca2fa5",
+  "outcome_index": 1,
+  "outcome": "No",
+  "title": "Will Anthropic's market cap be less than $1.25T at market close on IPO day?",
+  "usd": 85228.51,
+  "shares": 130000.0,
+  "bet_ts": 1795028758,
+  "status": "open",
+  "pnl": null
  }
 ]
