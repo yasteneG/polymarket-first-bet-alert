@@ -843,5 +843,17 @@
   "bet_ts": 1795010248,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0xe2f079a9792dfcb0c7c3100c9cbe641accca2e2c",
+  "condition_id": "0xa7d7ed69cfd6107e5e005556730dcf45727c1cdd1001f0378f5e471526181c47",
+  "outcome_index": 1,
+  "outcome": "No",
+  "title": "Will Bitcoin reach $1,000,000 by December 31, 2026?",
+  "usd": 33968.38,
+  "shares": 34000.0,
+  "bet_ts": 1795011608,
+  "status": "open",
+  "pnl": null
  }
 ]
