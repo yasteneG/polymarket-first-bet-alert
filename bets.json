@@ -8,8 +8,9 @@
   "usd": 20000.0,
   "shares": 86956.5217,
   "bet_ts": 1793490255,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 66956.52,
+  "resolved_ts": 1795005640
  },
  {
   "wallet": "0x7421ea34f897f35f2ee71f38514df5d9741e79d0",
@@ -815,6 +816,19 @@
   "usd": 11824.86,
   "shares": 18949.3132,
   "bet_ts": 1794955688,
+  "status": "lost",
+  "pnl": -11824.86,
+  "resolved_ts": 1795005642
+ },
+ {
+  "wallet": "0x084dc4b3faa6c3c7a0c4ddd135a4d9421abb2a54",
+  "condition_id": "0x7d542320f58e9843696dbbf7c351c604ad59770dc7939e73493cd7af27a36f16",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Anthropic IPO: Closing Price above IPO Price on First Day?",
+  "usd": 15080.92,
+  "shares": 15998.48,
+  "bet_ts": 1795005638,
   "status": "open",
   "pnl": null
  }
