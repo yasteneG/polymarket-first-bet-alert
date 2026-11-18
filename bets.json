@@ -855,5 +855,17 @@
   "bet_ts": 1795011608,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0xce06721b9afc37971a2b1b1535d83a5be65df1c4",
+  "condition_id": "0x91a003371cb96dc30511f883052d6b5957d9f099f02704f9838523a260dd1162",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Will Anthropic's valuation hit (HIGH) $1.5T by December 31?",
+  "usd": 12098.19,
+  "shares": 15086.1302,
+  "bet_ts": 1795013957,
+  "status": "open",
+  "pnl": null
  }
 ]
