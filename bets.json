@@ -891,5 +891,17 @@
   "bet_ts": 1795032005,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0xea8e1e56d66e69c069e8fed979ca86ffcc41a696",
+  "condition_id": "0xce69227aa1daffdb6a60cc3e0da9da6f7f709a31f41457504c173997626bbc25",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Anthropic IPO closing market cap above $1.25T?",
+  "usd": 10081.7,
+  "shares": 12566.8372,
+  "bet_ts": 1795047613,
+  "status": "open",
+  "pnl": null
  }
 ]
