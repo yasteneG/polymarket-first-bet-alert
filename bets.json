@@ -903,5 +903,17 @@
   "bet_ts": 1795047613,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0xb9ddf9b1b2298558759c23baa1d7f98562ac5dab",
+  "condition_id": "0xce40b21b1f30f204196dff445cdfd78d5cea01b9b779572fed4e645072f9e054",
+  "outcome_index": 0,
+  "outcome": "GamerLegion",
+  "title": "Counter-Strike: GamerLegion vs Inner Circle Esports (BO3) - Stake Ranked Episode 6 Playoffs",
+  "usd": 34409.41,
+  "shares": 58167.2781,
+  "bet_ts": 1795083835,
+  "status": "open",
+  "pnl": null
  }
 ]
