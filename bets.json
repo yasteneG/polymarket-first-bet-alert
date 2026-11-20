@@ -780,8 +780,9 @@
   "usd": 14977.32,
   "shares": 19852.1541,
   "bet_ts": 1794839542,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 4874.83,
+  "resolved_ts": 1795135538
  },
  {
   "wallet": "0xbb571edcdf1a7696443eba78e7f7e17a9fe0ecf4",
@@ -792,8 +793,9 @@
   "usd": 14977.32,
   "shares": 19852.1541,
   "bet_ts": 1794839542,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 4874.83,
+  "resolved_ts": 1795135539
  },
  {
   "wallet": "0x2ea7112fef14e0f75977f2837d4caaa440604e8d",
@@ -829,8 +831,9 @@
   "usd": 15080.92,
   "shares": 15998.48,
   "bet_ts": 1795005638,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 917.56,
+  "resolved_ts": 1795135539
  },
  {
   "wallet": "0x790aa344fbce1e0f5a3b7a3a21265414c3f82f8a",
@@ -865,8 +868,9 @@
   "usd": 12098.19,
   "shares": 15086.1302,
   "bet_ts": 1795013957,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 2987.94,
+  "resolved_ts": 1795135540
  },
  {
   "wallet": "0x82ac8fbc90a63e375dc7dca41c349794e458bbee",
@@ -877,8 +881,9 @@
   "usd": 85228.51,
   "shares": 130000.0,
   "bet_ts": 1795028758,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 44771.49,
+  "resolved_ts": 1795135540
  },
  {
   "wallet": "0xfc44cdf21fce1ff4dd4d79633ca4d2bdc2c54db1",
@@ -901,8 +906,9 @@
   "usd": 10081.7,
   "shares": 12566.8372,
   "bet_ts": 1795047613,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 2485.14,
+  "resolved_ts": 1795135541
  },
  {
   "wallet": "0xb9ddf9b1b2298558759c23baa1d7f98562ac5dab",
@@ -913,6 +919,19 @@
   "usd": 34409.41,
   "shares": 58167.2781,
   "bet_ts": 1795083835,
+  "status": "won",
+  "pnl": 23757.87,
+  "resolved_ts": 1795135541
+ },
+ {
+  "wallet": "0x0bcafa570cad98ca253c4a205ac85bb1eef0f8ff",
+  "condition_id": "0xb61ef80741fa1fe594049dd7239fd616f0129d6de6b79a19e63d7d8caa1ac5b1",
+  "outcome_index": 1,
+  "outcome": "Under",
+  "title": "Colts vs. Texans: O/U 42.5",
+  "usd": 19312.65,
+  "shares": 42696.87,
+  "bet_ts": 1795135322,
   "status": "open",
   "pnl": null
  }
