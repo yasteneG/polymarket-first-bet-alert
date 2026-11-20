@@ -932,8 +932,9 @@
   "usd": 19312.65,
   "shares": 42696.87,
   "bet_ts": 1795135322,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 23384.22,
+  "resolved_ts": 1795183269
  },
  {
   "wallet": "0xa3358ec2bd77abb2287f8d0db21597fa98cd7624",
@@ -944,6 +945,19 @@
   "usd": 32787.11,
   "shares": 59730.388,
   "bet_ts": 1795140736,
+  "status": "won",
+  "pnl": 26943.28,
+  "resolved_ts": 1795183269
+ },
+ {
+  "wallet": "0x3478873ca92b65c52c9818b715056ab884e2a11e",
+  "condition_id": "0x0d9ab45fce9b9fe38e06ef1da9a8f49bbc164fdad895ef7031a809bd918a4f8a",
+  "outcome_index": 1,
+  "outcome": "Nishesh Basavareddy",
+  "title": "Helsinki: Edas Butvilas vs Nishesh Basavareddy",
+  "usd": 249673.97,
+  "shares": 264707.1567,
+  "bet_ts": 1795182958,
   "status": "open",
   "pnl": null
  }
