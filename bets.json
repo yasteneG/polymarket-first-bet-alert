@@ -934,5 +934,17 @@
   "bet_ts": 1795135322,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0xa3358ec2bd77abb2287f8d0db21597fa98cd7624",
+  "condition_id": "0x6166738dbd6632f4ff1b006387914bf892ee3ff91a75d48ada3968a02c7e9007",
+  "outcome_index": 1,
+  "outcome": "No",
+  "title": "Will Seattle Sounders FC win on 2026-11-19?",
+  "usd": 32787.11,
+  "shares": 59730.388,
+  "bet_ts": 1795140736,
+  "status": "open",
+  "pnl": null
  }
 ]
