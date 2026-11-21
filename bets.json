@@ -971,8 +971,9 @@
   "usd": 23605.71,
   "shares": 51064.1336,
   "bet_ts": 1795252894,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 27458.42,
+  "resolved_ts": 1795281638
  },
  {
   "wallet": "0x7e325e3e20c54e64129595689036e704ab810b57",
@@ -983,6 +984,18 @@
   "usd": 16810.51,
   "shares": 45247.93,
   "bet_ts": 1795261877,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0x935978e23b585d3ec122f36d91d3d5591d3c50d1",
+  "condition_id": "0x8a4196617dcb703e49d9bb36d3847bf6a75fd364dbd19f8d408ac944bf1a03d8",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Will the Fed increase interest rates by 25 bps after the December 2026 meeting?",
+  "usd": 19995.56,
+  "shares": 22442.24,
+  "bet_ts": 1795281211,
   "status": "open",
   "pnl": null
  }
