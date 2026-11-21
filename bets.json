@@ -958,6 +958,19 @@
   "usd": 249673.97,
   "shares": 264707.1567,
   "bet_ts": 1795182958,
+  "status": "won",
+  "pnl": 15033.19,
+  "resolved_ts": 1795253132
+ },
+ {
+  "wallet": "0x85f5c720e7494f83273dae422643f3f9fd2970c7",
+  "condition_id": "0xe8c6c82c6ca47f145e18135cd8f0ae86a9c2d67b18cde73e6b64cfdaadf4d7ef",
+  "outcome_index": 1,
+  "outcome": "No",
+  "title": "Will Aston Villa FC win on 2026-11-21?",
+  "usd": 23605.71,
+  "shares": 51064.1336,
+  "bet_ts": 1795252894,
   "status": "open",
   "pnl": null
  }
