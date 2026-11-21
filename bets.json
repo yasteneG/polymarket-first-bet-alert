@@ -973,5 +973,17 @@
   "bet_ts": 1795252894,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x7e325e3e20c54e64129595689036e704ab810b57",
+  "condition_id": "0x3d70337cad0a6b7c9527def367687f074b5c99e6626820b6c4a5b8a60facf993",
+  "outcome_index": 0,
+  "outcome": "Oilers",
+  "title": "Oilers vs. Hurricanes",
+  "usd": 16810.51,
+  "shares": 45247.93,
+  "bet_ts": 1795261877,
+  "status": "open",
+  "pnl": null
  }
 ]
