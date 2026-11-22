@@ -1023,5 +1023,17 @@
   "bet_ts": 1795328582,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x3aea02deb54b1b143ad6a4220fdef36145e32550",
+  "condition_id": "0x6ed45f7e96ad649bba3214f10ebc856a7a8816f98c4b7fc0f72186d9beceeb70",
+  "outcome_index": 0,
+  "outcome": "LEGION",
+  "title": "Dota 2: LEGION vs DO KONCA (BO3) - BLAST Slam Group C",
+  "usd": 19951.4,
+  "shares": 39567.7434,
+  "bet_ts": 1795352143,
+  "status": "open",
+  "pnl": null
  }
 ]
