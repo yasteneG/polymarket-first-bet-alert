@@ -1047,8 +1047,9 @@
   "usd": 46683.64,
   "shares": 83011.58,
   "bet_ts": 1795362362,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 36327.94,
+  "resolved_ts": 1795391734
  },
  {
   "wallet": "0x63528753dc949c74b3e6ecb614539798c1d21584",
@@ -1059,6 +1060,18 @@
   "usd": 35495.86,
   "shares": 61658.8555,
   "bet_ts": 1795379488,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0x7af730d49680bbf6e571ab535c62e7a3f93fcb41",
+  "condition_id": "0xd7d31993540da78e5fac89018912768150d788be6c9a89c936d812e8c369159c",
+  "outcome_index": 1,
+  "outcome": "Blues",
+  "title": "Oilers vs. Blues",
+  "usd": 11048.4,
+  "shares": 20000.0,
+  "bet_ts": 1795391726,
   "status": "open",
   "pnl": null
  }
