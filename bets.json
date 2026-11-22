@@ -1034,8 +1034,9 @@
   "usd": 19951.4,
   "shares": 39567.7434,
   "bet_ts": 1795352143,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -19951.4,
+  "resolved_ts": 1795379728
  },
  {
   "wallet": "0x5bf4d5c0ef9e1ccdf8832767b446ef19413e2c22",
@@ -1046,6 +1047,18 @@
   "usd": 46683.64,
   "shares": 83011.58,
   "bet_ts": 1795362362,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0x63528753dc949c74b3e6ecb614539798c1d21584",
+  "condition_id": "0xbb756ec8f8f9570e60e22e1df4ef045c244a03d524594244389567385ae73d37",
+  "outcome_index": 0,
+  "outcome": "Wildcard",
+  "title": "Valorant: Wildcard vs Winthrop University (BO3) - VCT Americas Kickoff: North America Group Stage",
+  "usd": 35495.86,
+  "shares": 61658.8555,
+  "bet_ts": 1795379488,
   "status": "open",
   "pnl": null
  }
