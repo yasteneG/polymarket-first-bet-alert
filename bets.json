@@ -984,8 +984,9 @@
   "usd": 16810.51,
   "shares": 45247.93,
   "bet_ts": 1795261877,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -16810.51,
+  "resolved_ts": 1795321530
  },
  {
   "wallet": "0x935978e23b585d3ec122f36d91d3d5591d3c50d1",
@@ -996,6 +997,18 @@
   "usd": 19995.56,
   "shares": 22442.24,
   "bet_ts": 1795281211,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0x6a949305dd142b697f38976b2323c8e6f8c89d9a",
+  "condition_id": "0xacb4bae086c3641d13b6ef1d90c4a5e24d52b74f50a33fe4523ce0636238ea1f",
+  "outcome_index": 0,
+  "outcome": "Jaguars",
+  "title": "Jaguars vs. Giants",
+  "usd": 50337.1,
+  "shares": 69884.0,
+  "bet_ts": 1795321243,
   "status": "open",
   "pnl": null
  }
