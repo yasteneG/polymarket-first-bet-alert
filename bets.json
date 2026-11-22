@@ -1021,8 +1021,9 @@
   "usd": 87703.13,
   "shares": 103951.0814,
   "bet_ts": 1795328582,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 16247.95,
+  "resolved_ts": 1795362930
  },
  {
   "wallet": "0x3aea02deb54b1b143ad6a4220fdef36145e32550",
@@ -1033,6 +1034,18 @@
   "usd": 19951.4,
   "shares": 39567.7434,
   "bet_ts": 1795352143,
+  "status": "open",
+  "pnl": null
+ },
+ {
+  "wallet": "0x5bf4d5c0ef9e1ccdf8832767b446ef19413e2c22",
+  "condition_id": "0x3ad2bc5007669e25fa01a5c6e49b05e3f33024e432c9eee577e89a2cf652220e",
+  "outcome_index": 1,
+  "outcome": "Saints",
+  "title": "Spread: Bears (-13.5)",
+  "usd": 46683.64,
+  "shares": 83011.58,
+  "bet_ts": 1795362362,
   "status": "open",
   "pnl": null
  }
