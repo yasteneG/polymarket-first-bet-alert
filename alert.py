@@ -291,7 +291,31 @@ def format_summary(bets):
         total = sum(b["pnl"] for b in won + lost + void)
         rate = len(won) / (len(won) + len(lost)) * 100
         lines.append(f"Σ <b>{signed_usd(total)}</b> · réussite {rate:.0f} %")
+        lines += ["", "🎯 <b>Réussite selon le prix d'entrée</b>", price_table(won, lost)]
     return "\n".join(lines)
+
+
+# Tranches du prix moyen payé (= probabilité donnée par le marché au moment du pari).
+PRICE_BUCKETS = [(0, 25), (25, 50), (50, 75), (75, 90), (90, 95), (95, 99), (99, 101)]
+
+
+def price_table(won, lost):
+    """Tableau gagnés / perdus par tranche de prix, en police fixe pour qu'il reste aligné sur Telegram."""
+    def bucket(b):
+        price = b["usd"] / b["shares"] * 100 if b["shares"] else 0
+        return next(i for i, (lo, hi) in enumerate(PRICE_BUCKETS) if price < hi or hi == 101)
+
+    counts = [[0, 0] for _ in PRICE_BUCKETS]
+    for b in won:
+        counts[bucket(b)][0] += 1
+    for b in lost:
+        counts[bucket(b)][1] += 1
+    rows = ["Prix      Gagnés Perdus  Taux"]
+    for (lo, hi), (w, l) in zip(PRICE_BUCKETS, counts):
+        label = "+99 %" if hi == 101 else f"{lo}-{hi} %"
+        rate = f"{w / (w + l) * 100:.0f} %" if w + l else "–"
+        rows.append(f"{label:<9} {w:>6} {l:>6} {rate:>5}")
+    return "<pre>" + "\n".join(rows) + "</pre>"
 
 
 # ---------- Message ----------
