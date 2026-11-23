@@ -1009,8 +1009,9 @@
   "usd": 50337.1,
   "shares": 69884.0,
   "bet_ts": 1795321243,
-  "status": "open",
-  "pnl": null
+  "status": "lost",
+  "pnl": -50337.1,
+  "resolved_ts": 1795466439
  },
  {
   "wallet": "0x1853e2e02327d8fe20496eee35439304039bba45",
@@ -1060,8 +1061,9 @@
   "usd": 35495.86,
   "shares": 61658.8555,
   "bet_ts": 1795379488,
-  "status": "open",
-  "pnl": null
+  "status": "won",
+  "pnl": 26163.0,
+  "resolved_ts": 1795466440
  },
  {
   "wallet": "0x7af730d49680bbf6e571ab535c62e7a3f93fcb41",
@@ -1072,6 +1074,19 @@
   "usd": 11048.4,
   "shares": 20000.0,
   "bet_ts": 1795391726,
+  "status": "won",
+  "pnl": 8951.6,
+  "resolved_ts": 1795466440
+ },
+ {
+  "wallet": "0x274af4ac4cf5e25e70e3bcdb45c8a77e092ebe70",
+  "condition_id": "0x2b80a255ea99d85ba03523329976427034680e3c6901b7998dedd536241be8f2",
+  "outcome_index": 1,
+  "outcome": "Lunacy Team",
+  "title": "Counter-Strike: INFURITY Gaming vs Lunacy Team (BO3) - CCT Europe Closed Qualifier: Series #15 Group D",
+  "usd": 14953.31,
+  "shares": 21987.5655,
+  "bet_ts": 1795462316,
   "status": "open",
   "pnl": null
  }
