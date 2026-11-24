@@ -1087,6 +1087,19 @@
   "usd": 14953.31,
   "shares": 21987.5655,
   "bet_ts": 1795462316,
+  "status": "won",
+  "pnl": 7034.26,
+  "resolved_ts": 1795522842
+ },
+ {
+  "wallet": "0xb320a88b354b77e5d6e26580b82105c976141acb",
+  "condition_id": "0x0367bb24541fd13a2c705edc1925e67d340000000000000000000000000000",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Pistons vs. Magic: O/U 211.5 AND Pistons vs. Magic",
+  "usd": 12000.0,
+  "shares": 35600.2121,
+  "bet_ts": 1795522411,
   "status": "open",
   "pnl": null
  }
