@@ -1102,5 +1102,17 @@
   "bet_ts": 1795522411,
   "status": "open",
   "pnl": null
+ },
+ {
+  "wallet": "0x7d267c84251ade4b63e0438f0ffafe0e924cfdea",
+  "condition_id": "0x245e962e55621591668ba349be3f6ee3bb9b3724f3a21b917940d7d7b9977ba4",
+  "outcome_index": 0,
+  "outcome": "Yes",
+  "title": "Will FK Bodø/Glimt win on 2026-11-24?",
+  "usd": 93493.56,
+  "shares": 124725.5362,
+  "bet_ts": 1795542380,
+  "status": "open",
+  "pnl": null
  }
 ]
