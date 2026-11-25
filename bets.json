@@ -1112,6 +1112,19 @@
   "usd": 93493.56,
   "shares": 124725.5362,
   "bet_ts": 1795542380,
+  "status": "won",
+  "pnl": 31231.98,
+  "resolved_ts": 1795595456
+ },
+ {
+  "wallet": "0x067afdd64f1e1946741a2c325c762a012db40bf5",
+  "condition_id": "0x76e5adaeb7fc527c8b5567e84bf1f6bfccb5eeea4f259c6c562454d2d3941f92",
+  "outcome_index": 0,
+  "outcome": "9z",
+  "title": "Counter-Strike: 9z vs DENDELE CS - Map 1 Winner",
+  "usd": 30007.3,
+  "shares": 60000.0,
+  "bet_ts": 1795592566,
   "status": "open",
   "pnl": null
  }
