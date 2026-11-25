@@ -1,20 +1,19 @@
 #!/usr/bin/env python3
 """
-Alerte Polymarket : nouveau compte dont le PREMIER pari dépasse un seuil (10 000 $ par défaut).
+Statistiques Polymarket : tous les achats >= 1 000 $, et leur taux de réussite selon le prix d'entrée.
 
-Fonctionnement à chaque exécution :
-  1. Récupère les achats >= MIN_FILL_USD depuis l'exécution précédente (au moins 60 min, au plus 24 h).
-  2. Additionne les morceaux par (compte, marché) : un gros ordre est souvent exécuté en plusieurs fois.
-  3. Pour chaque candidat, lit l'historique complet du compte (du plus ancien au plus récent) et vérifie
-     que son tout premier trade est sur ce marché, récent, et que ses achats sur ce marché pendant
-     FIRST_BET_WINDOW_MIN minutes dépassent THRESHOLD_USD.
-  4. Envoie une alerte Telegram (ou l'affiche dans la console si Telegram n'est pas configuré),
-     suivie du bilan des paris déjà signalés (gagnés / perdus / en cours), conservé dans bets.json.
+À chaque exécution (toutes les 5 min) :
+  1. Récupère les achats >= MIN_BET_USD depuis l'exécution précédente et les ajoute aux paris en cours,
+     regroupés par marché, issue et tranche de prix (le fichier reste petit même avec des milliers de paris).
+  2. Une fois par jour, à partir de REPORT_HOUR (20 h, heure de Paris) : vérifie quels marchés en cours
+     sont tranchés, les passe en gagnés / perdus / remboursés une fois pour toutes, et envoie le rapport
+     sur Telegram (ou l'affiche dans la console si Telegram n'est pas configuré).
 
-Uniquement la bibliothèque standard Python : aucune dépendance à installer.
+Tout est conservé dans stats.json. Uniquement la bibliothèque standard Python.
+Usage ponctuel : python alert.py --backfill 7   (pré-remplit avec les 7 derniers jours)
+                 python alert.py --report       (envoie le rapport tout de suite)
 """
 
-import html
 import json
 import os
 import sys
@@ -22,8 +21,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from collections import defaultdict
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 try:
     from zoneinfo import ZoneInfo
@@ -34,29 +32,28 @@ except Exception:
 API = "https://data-api.polymarket.com/v2"
 GAMMA_API = "https://gamma-api.polymarket.com"
 
-THRESHOLD_USD = float(os.getenv("THRESHOLD_USD", "10000"))
-MIN_FILL_USD = float(os.getenv("MIN_FILL_USD", "1000"))
-MIN_LOOKBACK_MIN = int(os.getenv("LOOKBACK_MIN", "60"))
+MIN_BET_USD = float(os.getenv("MIN_BET_USD", "1000"))
+REPORT_HOUR = int(os.getenv("REPORT_HOUR", "20"))
 MAX_LOOKBACK_H = int(os.getenv("MAX_LOOKBACK_H", "24"))
-FIRST_BET_WINDOW_MIN = int(os.getenv("FIRST_BET_WINDOW_MIN", "30"))
-STATE_FILE = os.getenv("STATE_FILE", "state.json")
-BETS_FILE = os.getenv("BETS_FILE", "bets.json")
+STATS_FILE = os.getenv("STATS_FILE", "stats.json")
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "").strip()
-# Renvoi manuel : renvoie l'alerte de ce compte, même ancienne ou déjà envoyée.
-RESEND_WALLET = os.getenv("RESEND_WALLET", "").strip().lower()
+FORCE_REPORT = os.getenv("FORCE_REPORT", "").strip().lower() in ("1", "true", "yes")
 
-# Comptes déjà identifiés comme anciens : on les garde 30 jours pour éviter de les revérifier.
-OLD_WALLET_TTL = 30 * 24 * 3600
-ALERTED_TTL = 7 * 24 * 3600
+# Tranches du prix payé (= probabilité donnée par le marché au moment du pari).
+PRICE_BUCKETS = [(0, 25), (25, 50), (50, 75), (75, 90), (90, 95), (95, 99), (99, 101)]
+BUCKET_LABELS = ["+99 %" if hi == 101 else f"{lo}-{hi} %" for lo, hi in PRICE_BUCKETS]
+OUTCOMES = ("won", "lost", "void")
 
 
-def get_json(path, params, retries=3, base=API):
+# ---------- API ----------
+
+def get_json(base, path, params, retries=4):
     url = f"{base}{path}?{urllib.parse.urlencode(params, doseq=True)}"
     for attempt in range(retries):
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": "polymarket-first-bet-alert/1.0"})
-            with urllib.request.urlopen(req, timeout=20) as resp:
+            req = urllib.request.Request(url, headers={"User-Agent": "polymarket-stats/2.0"})
+            with urllib.request.urlopen(req, timeout=30) as resp:
                 return json.load(resp)
         except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
             if attempt == retries - 1:
@@ -66,318 +63,177 @@ def get_json(path, params, retries=3, base=API):
             time.sleep(wait)
 
 
-def data_api(path, params):
-    """Data API v2 : renvoie (lignes, curseur de la page suivante ou None)."""
-    resp = get_json(path, params)
-    if "data" not in resp:
-        raise RuntimeError(f"réponse inattendue de l'API : {resp}")
-    pagination = resp.get("pagination") or {}
-    return resp["data"], pagination.get("next_cursor") if pagination.get("has_more") else None
-
-
-def load_json(path, default):
-    try:
-        with open(path) as f:
-            return json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        return default
-
-
-def load_state():
-    state = load_json(STATE_FILE, {})
-    state.setdefault("old", {})
-    state.setdefault("alerted", {})
-    return state
-
-
-def save_state(state, now):
-    state["old"] = {w: t for w, t in state["old"].items() if now - t < OLD_WALLET_TTL}
-    state["alerted"] = {w: t for w, t in state["alerted"].items() if now - t < ALERTED_TTL}
-    state["last_run"] = now
-    with open(STATE_FILE, "w") as f:
-        json.dump(state, f)
-
-
-def lookback_start(state, now):
-    """Depuis l'exécution précédente (GitHub espace parfois ses lancements de plusieurs heures)."""
-    since = state.get("last_run", now) - 15 * 60
-    return max(min(since, now - MIN_LOOKBACK_MIN * 60), now - MAX_LOOKBACK_H * 3600)
-
-
-def fetch_recent_trades(since_ts):
-    """Achats >= MIN_FILL_USD depuis since_ts, page par page (du plus récent au plus ancien)."""
-    trades, cursor = [], None
-    for _ in range(100):
-        params = {"limit": 1000, "takerOnly": "true", "filterType": "CASH", "filterAmount": int(MIN_FILL_USD)}
+def fetch_buys(since_ts):
+    """Achats (côté preneur) >= MIN_BET_USD depuis since_ts, du plus récent au plus ancien."""
+    buys, cursor = [], None
+    while True:
+        params = {"limit": 1000, "takerOnly": "true", "filterType": "CASH", "filterAmount": int(MIN_BET_USD)}
         if cursor:
             params["cursor"] = cursor
-        batch, cursor = data_api("/trades", params)
-        trades.extend(t for t in batch if t["timestamp"] >= since_ts)
+        resp = get_json(API, "/trades", params)
+        if "data" not in resp:
+            raise RuntimeError(f"réponse inattendue de l'API : {resp}")
+        batch = resp["data"]
+        buys.extend(t for t in batch if t["timestamp"] >= since_ts and t["side"] == "BUY")
+        pagination = resp.get("pagination") or {}
+        cursor = pagination.get("next_cursor") if pagination.get("has_more") else None
         if not batch or not cursor or batch[-1]["timestamp"] < since_ts:
-            break
-    return trades
+            return buys
 
 
-def find_candidates(trades):
-    """(compte, marché) dont les achats cumulés approchent le seuil."""
-    totals = defaultdict(float)
-    for t in trades:
-        if t["side"] == "BUY":
-            totals[(t["proxy_wallet"], t["condition_id"])] += t["size"] * t["price"]
-    # Marge de 20 % : les morceaux < MIN_FILL_USD ne sont pas vus ici, le vrai total est recalculé ensuite.
-    return {w for (w, _), usd in totals.items() if usd >= THRESHOLD_USD * 0.8}
-
-
-def check_first_bet(wallet, now, max_age=None):
-    """
-    Renvoie ("alert", infos), ("old", None) si le compte a déjà un historique,
-    ou ("pending", None) si c'est trop tôt pour conclure. max_age=None : pas de limite d'ancienneté.
-    """
-    activity, _ = data_api("/activity", {
-        "user": wallet, "type": "TRADE", "limit": 200,
-        "sortBy": "TIMESTAMP", "sortDirection": "ASC",
-    })
-    if not activity:
-        return "pending", None
-
-    first = activity[0]
-    if max_age is not None and now - first["timestamp"] > max_age:
-        return "old", None
-
-    window_end = first["timestamp"] + FIRST_BET_WINDOW_MIN * 60
-    market = first["condition_id"]
-    buys = [a for a in activity
-            if a["condition_id"] == market and a["side"] == "BUY" and a["timestamp"] <= window_end]
-    total_usd = sum(float(a.get("usdc_size") or 0) for a in buys)
-
-    if total_usd >= THRESHOLD_USD:
-        by_outcome = defaultdict(float)
-        for a in buys:
-            by_outcome[a.get("outcome_index", 0)] += float(a.get("usdc_size") or 0)
-        index = max(by_outcome, key=by_outcome.get)
-        main_buys = [a for a in buys if a.get("outcome_index", 0) == index]
-        bet_usd = sum(float(a.get("usdc_size") or 0) for a in main_buys)
-        shares = sum(float(a.get("size") or 0) for a in main_buys)
-        return "alert", {
-            "wallet": wallet,
-            "name": first.get("name") or first.get("pseudonym") or "",
-            "title": first.get("title", ""),
-            "event_slug": first.get("event_slug") or first.get("slug") or "",
-            "outcome": main_buys[0].get("outcome", "?"),
-            "outcome_index": index,
-            "usd": bet_usd,
-            "shares": shares,
-            "avg_price": bet_usd / shares if shares else 0,
-            "fills": len(buys),
-            "condition_id": market,
-            "first_ts": first["timestamp"],
-            "last_ts": buys[-1]["timestamp"],
-            "tx": first.get("transaction_hash", ""),
-        }
-    if now > window_end and max_age is not None:
-        return "old", None
-    return "pending", None
-
-
-def gamma_market(condition_id):
-    """Fiche Gamma d'un marché, ouvert ou clôturé (Gamma ne renvoie les clôturés qu'avec closed=true)."""
-    for extra in ({}, {"closed": "true"}):
-        markets = get_json("/markets", {"condition_ids": condition_id, **extra}, base=GAMMA_API)
+def resolved_markets(condition_ids):
+    """{condition_id: [prix final de chaque issue]} pour les marchés tranchés parmi condition_ids."""
+    result = {}
+    ids = list(condition_ids)
+    for i in range(0, len(ids), 40):
+        chunk = ids[i:i + 40]
+        markets = get_json(GAMMA_API, "/markets", {"condition_ids": chunk, "closed": "true", "limit": 100})
         for m in markets or []:
-            if (m.get("conditionId") or "").lower() == condition_id.lower():
-                return m
-    return None
+            try:
+                prices = [float(p) for p in json.loads(m.get("outcomePrices") or "[]")]
+            except (ValueError, TypeError):
+                continue
+            # Un marché clôturé mais pas encore tranché garde des prix intermédiaires : on attend.
+            if m.get("umaResolutionStatus") != "resolved" and not all(p in (0.0, 0.5, 1.0) for p in prices):
+                continue
+            result[(m.get("conditionId") or "").lower()] = prices
+        time.sleep(0.2)
+    return result
 
 
-def parse_date(value):
-    """Dates Gamma : '2026-11-04T04:59:00Z' ou '2026-10-29 02:30:00+00'."""
-    if not value:
-        return None
-    v = value.strip().replace(" ", "T").replace("Z", "+00:00")
-    if len(v) >= 3 and v[-3] in "+-" and v[-2:].isdigit():
-        v += ":00"
+# ---------- Statistiques (stats.json) ----------
+
+def empty_results():
+    return [{k: [0, 0.0, 0.0] for k in OUTCOMES} for _ in PRICE_BUCKETS]  # [nombre, gain/perte, misé]
+
+
+def load_stats():
     try:
-        dt = datetime.fromisoformat(v)
-    except ValueError:
-        return None
-    return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+        with open(STATS_FILE) as f:
+            stats = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        stats = {}
+    stats.setdefault("started", int(time.time()))
+    stats.setdefault("open", {})            # condition_id -> {"t": titre, "p": {issue: {tranche: [n, $, parts]}}}
+    stats.setdefault("results", empty_results())
+    stats.setdefault("tracked", [0, 0.0])   # [nombre d'achats, montant total]
+    stats.setdefault("seen", {})            # identifiants des achats récents, pour ne jamais compter deux fois
+    stats.setdefault("last_report", {})
+    return stats
 
 
-def market_dates(condition_id):
-    """(début du match, fin du marché) ; None si inconnu."""
-    try:
-        m = gamma_market(condition_id)
-    except Exception as e:
-        print(f"  dates du marché indisponibles ({e})", file=sys.stderr)
-        return None, None
-    if not m:
-        return None, None
-    return parse_date(m.get("gameStartTime")), parse_date(m.get("endDate"))
+def save_stats(stats):
+    with open(STATS_FILE, "w") as f:
+        json.dump(stats, f, separators=(",", ":"), ensure_ascii=False)
 
 
-# ---------- Suivi des paris signalés (bets.json, enregistré dans le dépôt) ----------
-
-def load_bets():
-    return load_json(BETS_FILE, [])
-
-
-def save_bets(bets):
-    with open(BETS_FILE, "w") as f:
-        json.dump(bets, f, indent=1, ensure_ascii=False)
-        f.write("\n")
+def bucket_of(price):
+    pct = price * 100
+    return next(i for i, (_, hi) in enumerate(PRICE_BUCKETS) if pct < hi or hi == 101)
 
 
-def record_bet(bets, info):
-    if any(b["wallet"] == info["wallet"] for b in bets):
-        return
-    bets.append({
-        "wallet": info["wallet"], "condition_id": info["condition_id"],
-        "outcome_index": info["outcome_index"], "outcome": info["outcome"], "title": info["title"],
-        "usd": round(info["usd"], 2), "shares": round(info["shares"], 4),
-        "bet_ts": info["first_ts"], "status": "open", "pnl": None,
-    })
-
-
-def resolve_open_bets(bets):
-    """Vérifie uniquement les paris encore en cours ; un pari clôturé n'est plus jamais réanalysé."""
-    changed = False
-    for b in bets:
-        if b["status"] != "open":
+def add_buys(stats, buys):
+    added = 0
+    for t in buys:
+        key = f"{t['transaction_hash']}:{t['token_id']}"
+        if key in stats["seen"]:
             continue
-        try:
-            m = gamma_market(b["condition_id"])
-        except Exception as e:
-            print(f"  résultat indisponible pour « {b['title']} » ({e})", file=sys.stderr)
+        stats["seen"][key] = t["timestamp"]
+        usd_size, shares = t["size"] * t["price"], t["size"]
+        market = stats["open"].setdefault(t["condition_id"].lower(), {"t": t.get("title", ""), "p": {}})
+        cell = market["p"].setdefault(str(t["outcome_index"]), {}).setdefault(str(bucket_of(t["price"])), [0, 0.0, 0.0])
+        cell[0] += 1
+        cell[1] += usd_size
+        cell[2] += shares
+        stats["tracked"][0] += 1
+        stats["tracked"][1] += usd_size
+        added += 1
+    return added
+
+
+def resolve(stats):
+    """Passe les marchés tranchés en résultats définitifs : ils ne sont plus jamais réanalysés."""
+    finals = resolved_markets(stats["open"].keys())
+    for cid, prices in finals.items():
+        market = stats["open"].pop(cid, None)
+        if not market:
             continue
-        if not m or not m.get("closed"):
-            continue
-        try:
-            prices = [float(p) for p in json.loads(m.get("outcomePrices") or "[]")]
-            payout = prices[b["outcome_index"]]
-        except (ValueError, IndexError, TypeError):
-            continue
-        # Un marché clôturé mais pas encore tranché garde des prix intermédiaires : on attend.
-        if m.get("umaResolutionStatus") != "resolved" and payout not in (0.0, 0.5, 1.0):
-            continue
-        b["pnl"] = round(b["shares"] * payout - b["usd"], 2)
-        b["status"] = "won" if payout >= 0.99 else "lost" if payout <= 0.01 else "void"
-        b["resolved_ts"] = int(time.time())
-        changed = True
-        time.sleep(0.1)
-    return changed
+        for idx, cells in market["p"].items():
+            payout = prices[int(idx)] if int(idx) < len(prices) else 0.0
+            kind = "won" if payout >= 0.99 else "lost" if payout <= 0.01 else "void"
+            for b, (n, usd_size, shares) in cells.items():
+                r = stats["results"][int(b)][kind]
+                r[0] += n
+                r[1] += shares * payout - usd_size
+                r[2] += usd_size
+    return len(finals)
+
+
+# ---------- Rapport ----------
+
+def usd(n):
+    return f"{n:,.0f}".replace(",", " ")
 
 
 def signed_usd(n):
     return f"{'+' if n >= 0 else '−'}{usd(abs(n))} $"
 
 
-def format_summary(bets):
-    won = [b for b in bets if b["status"] == "won"]
-    lost = [b for b in bets if b["status"] == "lost"]
-    void = [b for b in bets if b["status"] == "void"]
-    open_ = [b for b in bets if b["status"] == "open"]
-    won_usd = sum(b["pnl"] for b in won)
-    lost_usd = sum(b["pnl"] for b in lost)
+def short_usd(n):
+    sign = "+" if n >= 0 else "-"
+    n = abs(n)
+    if n >= 1e6:
+        return f"{sign}{n / 1e6:.1f}M"
+    if n >= 1e3:
+        return f"{sign}{n / 1e3:.0f}k"
+    return f"{sign}{n:.0f}"
+
+
+def totals(results):
+    return {k: [sum(r[k][i] for r in results) for i in range(3)] for k in OUTCOMES}
+
+
+def format_report(stats, resolved_now):
+    res, prev = stats["results"], stats["last_report"]
+    tot = totals(res)
+    open_n = sum(c[0] for m in stats["open"].values() for p in m["p"].values() for c in p.values())
+    open_usd = sum(c[1] for m in stats["open"].values() for p in m["p"].values() for c in p.values())
+    today = datetime.now(TZ).strftime("%d/%m/%Y")
+    since = datetime.fromtimestamp(stats["started"], TZ).strftime("%d/%m")
+
     lines = [
+        f"📊 <b>Rapport Polymarket du {today}</b>",
+        f"Tous les achats ≥ {usd(MIN_BET_USD)} $, suivis depuis le {since}",
         "",
-        f"📈 <b>Bilan des {len(bets)} pari(s) signalé(s)</b>",
-        f"✅ Gagnés : {len(won)} ({signed_usd(won_usd)})",
-        f"❌ Perdus : {len(lost)} ({signed_usd(lost_usd)})",
+        f"🧾 Suivis : <b>{usd(stats['tracked'][0])}</b> achats ({usd(stats['tracked'][1])} $)",
     ]
-    if void:
-        lines.append(f"⚖️ Annulés / remboursés : {len(void)} ({signed_usd(sum(b['pnl'] for b in void))})")
-    lines.append(f"⏳ En cours : {len(open_)} ({usd(sum(b['usd'] for b in open_))} $ misés)")
-    if won or lost:
-        total = sum(b["pnl"] for b in won + lost + void)
-        rate = len(won) / (len(won) + len(lost)) * 100
-        lines.append(f"Σ <b>{signed_usd(total)}</b> · réussite {rate:.0f} %")
-        lines += ["", "🎯 <b>Réussite selon le prix d'entrée</b>", price_table(won, lost)]
-    return "\n".join(lines)
-
-
-# Tranches du prix moyen payé (= probabilité donnée par le marché au moment du pari).
-PRICE_BUCKETS = [(0, 25), (25, 50), (50, 75), (75, 90), (90, 95), (95, 99), (99, 101)]
-
-
-def price_table(won, lost):
-    """Tableau gagnés / perdus par tranche de prix, en police fixe pour qu'il reste aligné sur Telegram."""
-    def bucket(b):
-        price = b["usd"] / b["shares"] * 100 if b["shares"] else 0
-        return next(i for i, (lo, hi) in enumerate(PRICE_BUCKETS) if price < hi or hi == 101)
-
-    counts = [[0, 0] for _ in PRICE_BUCKETS]
-    for b in won:
-        counts[bucket(b)][0] += 1
-    for b in lost:
-        counts[bucket(b)][1] += 1
-    rows = ["Prix      Gagnés Perdus  Taux"]
-    for (lo, hi), (w, l) in zip(PRICE_BUCKETS, counts):
-        label = "+99 %" if hi == 101 else f"{lo}-{hi} %"
-        rate = f"{w / (w + l) * 100:.0f} %" if w + l else "–"
-        rows.append(f"{label:<9} {w:>6} {l:>6} {rate:>5}")
-    return "<pre>" + "\n".join(rows) + "</pre>"
-
-
-# ---------- Message ----------
-
-def fmt_time(dt):
-    return dt.astimezone(TZ).strftime("%d/%m à %H:%M")
-
-
-def until(dt, now, past="déjà passé"):
-    secs = (dt - now).total_seconds()
-    if secs < 0:
-        return past
-    hours = secs / 3600
-    if hours < 1:
-        return f"dans {max(1, round(secs / 60))} min"
-    if hours < 48:
-        return f"dans {hours:.0f} h" if hours >= 10 else f"dans {int(hours)} h {int(secs % 3600 // 60):02d}"
-    return f"dans {hours / 24:.0f} jours"
-
-
-def usd(n):
-    return f"{n:,.0f}".replace(",", " ")
-
-
-def format_alert(a):
-    e = html.escape
-    now = datetime.now(timezone.utc)
-    bet_first = datetime.fromtimestamp(a["first_ts"], timezone.utc)
-    bet_last = datetime.fromtimestamp(a["last_ts"], timezone.utc)
-    if bet_last - bet_first >= timedelta(minutes=1):
-        bet_time = f"{fmt_time(bet_first)} → {bet_last.astimezone(TZ):%H:%M}"
-    else:
-        bet_time = fmt_time(bet_first)
-    tz_name = "heure de Paris" if str(TZ) == "Europe/Paris" else str(TZ)
-    game_start, market_end = market_dates(a["condition_id"])
-    profile = f"https://polymarket.com/profile/{a['wallet']}"
-    market = f"https://polymarket.com/event/{a['event_slug']}"
-    short = f"{a['wallet'][:6]}…{a['wallet'][-4:]}"
-    lines = [
-        f"🚨 <b>Nouveau compte, premier pari ≥ {usd(THRESHOLD_USD)} $</b>",
-        "",
-        f"💰 <b>{usd(a['usd'])} $</b> sur <b>{e(a['outcome'])}</b>",
-        f"📊 {e(a['title'])}",
-        f"🎯 Prix moyen : {a['avg_price']:.3f} (≈ {a['avg_price'] * 100:.1f} %)",
-        f"💵 Gain potentiel : {usd(a['shares'] - a['usd'])} $",
-        f"🧩 {a['fills']} exécution(s)",
-        "",
-        f"🕐 Parié le {bet_time} ({tz_name})",
-    ]
-    if game_start:
-        lines.append(f"🏟 Début du match : {fmt_time(game_start)} ({until(game_start, now, 'déjà commencé')})")
-    # Pour le sport, la « fin » Polymarket n'est qu'une date limite (marge en cas de report) :
-    # seule l'heure du match compte. Pour le reste, c'est l'échéance à laquelle le résultat est attendu.
-    elif market_end:
-        lines.append(f"⏳ Échéance du marché : {fmt_time(market_end)} ({until(market_end, now, 'dépassée')})")
+    if prev:
+        new = stats["tracked"][0] - prev.get("tracked", 0)
+        done = sum(tot[k][0] for k in OUTCOMES) - prev.get("decided", 0)
+        lines.append(f"🆕 Depuis hier : +{usd(new)} achats, {usd(done)} tranchés")
     lines += [
-        "",
-        f"👤 <a href=\"{profile}\">{e(a['name'] or short)}</a> ({short})",
-        f"🔗 <a href=\"{market}\">Voir le marché</a>",
+        f"✅ Gagnés : {usd(tot['won'][0])} ({signed_usd(tot['won'][1])})",
+        f"❌ Perdus : {usd(tot['lost'][0])} ({signed_usd(tot['lost'][1])})",
     ]
-    if a["tx"]:
-        lines.append(f"⛓ <a href=\"https://polygonscan.com/tx/{a['tx']}\">Transaction</a>")
+    if tot["void"][0]:
+        lines.append(f"⚖️ Remboursés : {usd(tot['void'][0])} ({signed_usd(tot['void'][1])})")
+    lines.append(f"⏳ En cours : {usd(open_n)} ({usd(open_usd)} $ misés)")
+    decided = tot["won"][0] + tot["lost"][0]
+    if decided:
+        pnl = sum(tot[k][1] for k in OUTCOMES)
+        staked = sum(tot[k][2] for k in OUTCOMES)
+        lines.append(f"Σ <b>{signed_usd(pnl)}</b> · réussite {tot['won'][0] / decided * 100:.0f} % · "
+                     f"rendement {pnl / staked * 100:+.1f} %")
+
+    rows = ["Prix     Gagnés Perdus Taux  Gain"]
+    for label, r in zip(BUCKET_LABELS, res):
+        w, l = r["won"][0], r["lost"][0]
+        rate = f"{w / (w + l) * 100:.0f}%" if w + l else "–"
+        pnl = short_usd(sum(r[k][1] for k in OUTCOMES)) if w + l else "–"
+        rows.append(f"{label:<8} {w:>6} {l:>6} {rate:>4} {pnl:>6}")
+    lines += ["", "🎯 <b>Réussite selon le prix d'entrée</b>", "<pre>" + "\n".join(rows) + "</pre>"]
+    lines.append(f"<i>Gain = gain ou perte des parieurs, en supposant qu'ils gardent leur pari jusqu'au résultat. "
+                 f"{usd(resolved_now)} marché(s) tranché(s) depuis le dernier rapport.</i>")
     return "\n".join(lines)
 
 
@@ -395,82 +251,49 @@ def send_telegram(text):
             raise RuntimeError(f"Telegram a répondu {resp.status}")
 
 
-class Notifier:
-    """Envoie les alertes ; met le bilan à jour une seule fois par exécution, au premier message."""
-
-    def __init__(self, bets):
-        self.bets = bets
-        self.refreshed = False
-
-    def send(self, info):
-        record_bet(self.bets, info)
-        if not self.refreshed:
-            resolve_open_bets(self.bets)
-            self.refreshed = True
-        send_telegram(format_alert(info) + "\n" + format_summary(self.bets))
+def report_due(stats, force):
+    now = datetime.now(TZ)
+    return force or (now.hour >= REPORT_HOUR and stats["last_report"].get("day") != now.strftime("%Y-%m-%d"))
 
 
-def seed_bets(bets, wallets, now):
-    """Ajoute au suivi les comptes déjà signalés avant l'existence du bilan."""
-    known = {b["wallet"] for b in bets}
-    for wallet in sorted(set(wallets) - known):
-        try:
-            verdict, info = check_first_bet(wallet, now)
-        except Exception as e:
-            print(f"  {wallet} : reprise impossible ({e})", file=sys.stderr)
-            continue
-        if verdict == "alert":
-            record_bet(bets, info)
-            print(f"  repris dans le bilan : {wallet} ({info['usd']:.0f} $ sur « {info['title']} »)")
-        time.sleep(0.25)
-
-
-def resend(wallet, now):
-    verdict, info = check_first_bet(wallet, now)
-    if verdict != "alert":
-        print(f"{wallet} : pas de premier pari >= {THRESHOLD_USD:.0f} $, rien à renvoyer.")
-        return
-    bets = load_bets()
-    Notifier(bets).send(info)
-    save_bets(bets)
-    print(f"Alerte renvoyée pour {wallet} : {info['usd']:.0f} $ sur « {info['title']} »")
+def send_report(stats):
+    resolved_now = resolve(stats)
+    send_telegram(format_report(stats, resolved_now))
+    tot = totals(stats["results"])
+    stats["last_report"] = {
+        "day": datetime.now(TZ).strftime("%Y-%m-%d"),
+        "tracked": stats["tracked"][0],
+        "decided": sum(tot[k][0] for k in OUTCOMES),
+    }
+    # Signale au workflow qu'il faut enregistrer stats.json dans le dépôt (sauvegarde quotidienne).
+    if os.getenv("GITHUB_OUTPUT"):
+        with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+            f.write("reported=true\n")
+    print(f"Rapport envoyé ({resolved_now} marché(s) tranché(s)).")
 
 
 def main():
     now = int(time.time())
-    if RESEND_WALLET:
-        return resend(RESEND_WALLET, now)
-    state = load_state()
-    bets = load_bets()
-    seed_bets(bets, state["alerted"].keys(), now)
+    args = sys.argv[1:]
+    stats = load_stats()
 
-    since = lookback_start(state, now)
-    trades = fetch_recent_trades(since)
-    known = state["old"].keys() | state["alerted"].keys() | {b["wallet"] for b in bets}
-    candidates = find_candidates(trades) - known
-    print(f"{len(trades)} achats >= {MIN_FILL_USD:.0f} $ sur {(now - since) // 60} min, "
-          f"{len(candidates)} compte(s) à vérifier")
+    if args[:1] == ["--backfill"]:
+        days = float(args[1]) if len(args) > 1 else 7
+        since = now - int(days * 86400)
+        stats["started"] = min(stats["started"], since)
+    else:
+        since = max(stats.get("last_run", now - 3600) - 15 * 60, now - MAX_LOOKBACK_H * 3600)
 
-    notifier = Notifier(bets)
-    alerts = 0
-    for wallet in sorted(candidates):
-        try:
-            verdict, info = check_first_bet(wallet, now, max_age=now - since + 15 * 60)
-        except Exception as e:
-            print(f"  {wallet} : vérification impossible ({e})", file=sys.stderr)
-            continue
-        if verdict == "old":
-            state["old"][wallet] = now
-        elif verdict == "alert":
-            notifier.send(info)
-            state["alerted"][wallet] = now
-            alerts += 1
-            print(f"  ALERTE {wallet} : {info['usd']:.0f} $ sur « {info['title']} »")
-        time.sleep(0.25)
+    buys = fetch_buys(since)
+    added = add_buys(stats, buys)
+    stats["seen"] = {k: ts for k, ts in stats["seen"].items() if ts >= since - 3600}
+    stats["last_run"] = now
+    print(f"{added} nouvel(s) achat(s) >= {usd(MIN_BET_USD)} $ sur {(now - since) // 60} min "
+          f"({len(stats['open'])} marché(s) en cours)")
 
-    save_bets(bets)
-    save_state(state, now)
-    print(f"Terminé : {alerts} alerte(s) envoyée(s).")
+    if report_due(stats, FORCE_REPORT or "--report" in args):
+        send_report(stats)
+    save_stats(stats)
 
 
 if __name__ == "__main__":
